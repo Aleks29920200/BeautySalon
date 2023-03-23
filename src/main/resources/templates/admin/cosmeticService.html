@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/fragments/head}"></div>
+<body>
+<div th:replace="~{/fragments/navbar}"></div>
+<div class="card">
+    <img class="card-img" src="/images/allServices.png" alt="picture">
+    <div class="card-img-overlay" th:action="@{/user/cosmeticService}">
+        <div class="card-img-overlay" >
+            <div class="text-center">
+                <h1>
+                    Employees
+                </h1>
+            </div>
+            <div>
+                <table class="table-dark table-responsive">
+                    <tr>
+                        <th data-th-text="#{label.serviceName}">Name</th>
+                        <th data-th-text="#{label.servicePrice}">Price</th>
+                        <th data-th-text="#{label.serviceCategory}">Category</th>
+                        <th data-th-text="#{label.serviceInfo}">Info</th>
+                    </tr>
+                    <tr th:each="service : ${allServices}"
+                        th:object="${service}">
+                        <td th:text="${service.name}"></td>
+                        <td th:text="${service.price}"></td>
+                        <td th:text="${service.category}"></td>
+                        <td th:text="${service.info}"></td>
+                        <td>
+                            <a type="button" th:if="${service.id!=null}" class="btn-dark" th:href="@{'/admin/cosmeticService/' + ${service.id}}">
+                                Delete
+                            </a></td>
+                    </tr>
+                </table>
+            </div>
+            <footer class="text-dark" th:replace="~{/fragments/footer}"></footer>
+        </div>
+            </div>
+    </div>
+</body>
+</html>

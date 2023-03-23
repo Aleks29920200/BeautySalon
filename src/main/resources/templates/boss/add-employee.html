@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:action="@{/fragments/head}"></div>
+<body>
+<div th:replace="~{/fragments/navbar}"></div>
+    <div class="card">
+        <img class="card-img" src="/images/employee.png" alt="kur">
+        <div class="card-img-overlay" th:action="@{/boss/add-employee}">
+                <form
+                        th:object="${addEmployeeDto}"
+                        method="post" class="mx-auto w-50 bg-blur rounded">
+                    <div class="form-group mb-3 justify-content-center" >
+                        <label  for="fullName" class="form-label"  data-th-text="#{label.employeeFullName}">Full Name</label>
+                        <input
+                                class="form-control bg-dark"
+                                id="fullName"
+                                name="fullName"
+                                placeholder="FullName"
+                                data-th-placeholder="#{label.employeeFullName}"
+                                th:field="*{fullName}"
+                                type="text"
+                        />
+                        <p th:errors = "*{fullName}" class="text-danger"
+                           th:if="${#fields.hasErrors('fullName')}"></p>
+                    </div>
+                    <div class="form-group mb-3 justify-content-center">
+                        <label  for="age" class="form-label" data-th-text="#{label.employeeAge}">Age</label>
+                        <input
+                                class="form-control bg-dark"
+                                id="age"
+                                name="age"
+                                placeholder="Price"
+                                data-th-placeholder="#{label.employeeAge}"
+                                th:field="*{age}"
+                                type="number"
+                        />
+                        <p th:errors = "*{age}" class="text-danger"
+                           th:if="${#fields.hasErrors('age')}"></p>
+                    </div>
+                    <div class="form-group mb-3 justify-content-center" >
+                        <label  for="address" class="form-label" data-th-text="#{label.employeeAddress}">Address</label>
+                        <input
+                                class="form-control bg-dark"
+                                id="address"
+                                name="fullName"
+                                placeholder="address"
+                                data-th-placeholder="#{label.employeeAddress}"
+                                th:field="*{address}"
+                                type="text"
+                        />
+                        <p th:errors = "*{address}" class="text-danger"
+                           th:if="${#fields.hasErrors('address')}"></p>
+                    </div>
+                    <div class="form-group mb-3 justify-content-center">
+                        <label  for="startOfWorkingDay" class="form-label" data-th-value="#{label.employeeStart}">Start of working day</label>
+                        <input
+                                class="form-control bg-dark"
+                                id="startOfWorkingDay"
+                                name="startOfWorkingDay"
+                                placeholder="startOfWorkingDay"
+                                th:text="${#dates.format(start,'HH:mm:ss')}"
+                                type="time"
+                        />
+                        <p th:errors = "*{startOfWorkingDay}" class="text-danger"
+                           th:if="${#fields.hasErrors('startOfWorkingDay')}"></p>
+                    </div>
+                    <div class="form-group mb-3 justify-content-center" >
+                        <label  for="endOfWorkingDay" class="form-label" data-th-text="#{label.employeeEnd}">End of working day</label>
+                        <input
+                                class="form-control bg-dark"
+                                id="endOfWorkingDay"
+                                name="endOfWorkingDay"
+                                placeholder="endOfWorkingDay"
+                                th:text="${#dates.format(end,'HH:mm:ss')}"
+                                type="time"
+                        />
+                        <p th:errors = "*{endOfWorkingDay}" class="text-danger"
+                           th:if="${#fields.hasErrors('endOfWorkingDay')}"></p>
+                    </div>
+                    <div class="form-group mb-3 justify-content-center">
+                        <label  for="salary" class="form-label" data-th-text="#{label.employeeSalary}">Salary</label>
+                        <input
+                                class="form-control bg-dark"
+                                id="salary"
+                                name="salary"
+                                placeholder="salary"
+                                data-th-placeholder="#{label.employeeSalary}"
+                                th:field="*{salary}"
+                                type="number"
+                        />
+                        <p th:errors = "*{salary}" class="text-danger"
+                           th:if="${#fields.hasErrors('salary')}"></p>
+                    </div>
+                    <div class="form-group mb-3 justify-content-center">
+                        <label  for="identificationNumber" class="form-label" data-th-text="#{label.employeeIdentificationNumber}">Identification number</label>
+                        <input
+                                class="form-control bg-dark"
+                                id="identificationNumber"
+                                name="identificationNumber"
+                                data-th-placeholder="#{label.employeeIdentificationNumber}"
+                                placeholder="identificationNumber"
+                                th:field="*{identificationNumber}"
+                                type="text"
+                        />
+                        <p th:errors = "*{identificationNumber}" class="text-danger"
+                           th:if="${#fields.hasErrors('identificationNumber')}"></p>
+                    </div>
+                    <div class="form-group mb-3 justify-content-center">
+                        <label  for="email" class="form-label" data-th-text="#{label.employeeEmail}">Email</label>
+                        <input
+                                class="form-control bg-dark"
+                                id="email"
+                                name="email"
+                                data-th-placeholder="#{label.employeeEmail}"
+                                placeholder="Email"
+                                th:field="*{email}"
+                                type="text"
+                        />
+                        <p th:errors = "*{email}" class="text-danger"
+                           th:if="${#fields.hasErrors('email')}"></p>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col col-md-4">
+                            <div class="button-holder d-flex">
+                                <input type="submit" class="btn btn-info btn-lg" data-th-value="#{label.addEmployee}" value="Add Service"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+    <footer th:replace="~{/fragments/footer}"></footer>
+</body>
+</html>

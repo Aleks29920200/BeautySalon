@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/fragments/head}"></div>
+<body>
+<div class="container">
+    <div class="row">
+        <div th:object="${transaction}"
+             class="col-md-4 d-flex flex-column bg-text mb-3 rounded-circle">
+            <h2>Name <strong th:text="*{startDate}"></strong></h2>
+            <h4>Price: <strong th:text="*{expirationDate}"></strong></h4>
+            <h4>Category: <strong th:text="*{service.name}"></strong></h4>
+            <h4>Category: <strong th:text="*{bill.price}"></strong></h4>
+            <h4>Category: <strong th:text="*{bill.amount}"></strong></h4>
+        </div>
+        <button class="btn btn-primary" th:if="${transaction.id!=null}" data-toggle="modal" href="#ignismyModal">Delete</button>
+        <div class="container">
+            <div class="row">
+                <div class="modal fade" id="ignismyModal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="thank-you-pop" >
+                                    <img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+                                    <p>Your have successfully deleted your transaction</p>
+                                    <form method="post"
+                                          th:action="@{'/user/all-transactions/' + ${id}}">
+                                        <button class="btn btn-dark align-content-center" type="submit">Ok</button>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/fragments/head}"></div>
+<body>
+<div th:replace="~{/fragments/navbar}"></div>
+<div class="card">
+    <img class="card-img" src="/images/employee.png" alt="picture" >
+    <div class="card-img-overlay">
+    <form
+          th:action="@{/admin/add-service}"
+          th:object="${addServiceDto}"
+          method="post">
+        <div class="form-group mb-3">
+            <label  for="name" class="form-label" data-th-text="#{label.serviceName}">First Name</label>
+            <input
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    placeholder="Name"
+                    th:field="*{name}"
+                    type="text"
+            />
+            <p th:errors = "*{name}" class="text-danger"
+               th:if="${#fields.hasErrors('name')}"></p>
+        </div>
+        <div class="form-group mb-3">
+            <label  for="price" class="form-label" data-th-text="#{label.servicePrice}">Last Name</label>
+            <input
+                    class="form-control"
+                    id="price"
+                    name="price"
+                    placeholder="Price"
+                    th:field="*{price}"
+                    type="number" step="0.1"
+            />
+            <p th:errors = "*{price}" class="text-danger"
+               th:if="${#fields.hasErrors('price')}"></p>
+        </div>
+                <div class="form-group">
+                    <label for="category" data-th-text="#{label.serviceCategory}">Select Topic</label>
+                    <select class="form-control" id="category" th:field="*{category}">
+                        <option th:each="category : ${T(com.example.dealership1.domain.entity.ServiceCategory).values()}"
+                               name="category"  th:value="${category}" th:text="${category}"></option>
+                    </select>
+                </div>
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="info" class="h4 mb-2" data-th-text="#{label.serviceInfo}">Info</label>
+            </div>
+            <textarea type="text" class="form-control" id="info" name="info"></textarea>
+            <p th:errors = "*{info}" class="text-danger"
+               th:if="${#fields.hasErrors('info')}"></p>
+        </div>
+        <div class="form-group">
+            <h1 data-th-text="#{label.serviceUploadPicture}">Upload image:</h1>
+            <a th:href="@{/upload}" >Image</a>
+        </div>
+            <div class="row">
+                <div class="col col-md-4">
+                    <div class="button-holder  d-flex">
+                        <input type="submit" class="btn btn-info btn-lg" data-th-value="#{label.addService}" value="Add Service"/>
+                    </div>
+                </div>
+        </div>
+    </form>
+</div>
+    <div th:replace="~{/fragments/footer}"></div>
+</div>
+</body>
+</html>

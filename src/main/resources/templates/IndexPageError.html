@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Page Access Denied</title>
+</head>
+<body>
+You have already logged in and you cannot return to index page
+Please return to your home page:
+<a th:href="@{/home}"></a>
+And if you want to reach the index page first you need to logout:
+<a th:href="@{/logout}"></a>
+</body>
+</html>

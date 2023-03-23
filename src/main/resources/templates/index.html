@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/fragments/head}"></div>
+<body>
+<div class="card">
+  <nav th:replace="~{/fragments/navbar}"></nav>
+  <img class="card-img" src="/images/salon.png" alt="picture">
+  <div class="card-img-overlay">
+    <div>
+      <table>
+        <tr>
+          <th data-th-text="#{label.employee.fullName}">FullName</th>
+        </tr>
+        <tr th:each="employee : ${employees}"
+            th:object="${employee}">
+          <td data-th-text="${employee.fullName}"></td>
+        </tr>
+      </table>
+    </div>
+    <footer th:replace="~{/fragments/footer}"></footer>
+</div>
+</div>
+<div>
+</div>
+</body>
+</html>

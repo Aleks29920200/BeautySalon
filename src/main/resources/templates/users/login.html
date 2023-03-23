@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<div th:replace="~{/fragments/head}"></div>
+<body>
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto col-12 justify-content-between" sec:authorize="isAnonymous()">
+            <li class="nav-item">
+                <a class="nav-link"  th:href="@{/users/register}" data-th-text="#{label.register}">Register</a>
+            </li>
+            <li class="nav-item" >
+                <a class="nav-link"  th:href="@{/users/login}" data-th-text="#{label.login}">Login</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="card">
+    <img class="card-img" src="/images/login.png" alt="picture">
+    <div class="card-img-overlay">
+        <h2 class="text-center">
+        </h2>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="text-center" data-th-text="#{label.login}">Login</h2>
+                        </div>
+                        <div class="card-body">
+                            <form
+                                    role="form"
+                                    th:action="@{/users/login}"
+                                    method="post"
+                                    class="form-horizontal">
+                                <div class="flex-column">
+                                    <div th:if="${param.error}" class="alert alert-danger">Wrong username or password!</div>
+                                    <label for="username" class="text-center" data-th-text="#{label.username}">Username</label>
+                                    <div class="col-sm-10">
+                                        <input
+                                               type="text"
+                                               class="form-control"
+                                               required minlength="3" maxlength="20"
+                                               id="username"
+                                               name="username"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="flex-column">
+                                    <label for="password" class="text-center" data-th-text="#{label.password}">Password</label>
+                                    <div class="col-sm-10">
+                                        <input
+                                               type="password"
+                                               class="form-control"
+                                               required minlength="3" maxlength="20"
+                                               id="password"
+                                               name="password"
+                                        />
+                                    </div>
+                                <div class="form-group mb-3">
+                                    <button type="submit" class="btn btn-primary" data-th-text="#{label.login}">Login</button>
+                                    <span data-th-value="#{label.notRegistered}"> Not registered ?
+                                <a th:href="@{/users/register}" data-th-text="#{label.registerIfNotHaveAccount}">Sign up</a>
+                            </span>
+                                </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <footer th:replace="~{fragments/footer}"></footer>
+    </div>
+</div>
+</body>
+</html>

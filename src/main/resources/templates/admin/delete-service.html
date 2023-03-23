@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/fragments/head}"></div>
+<body>
+<div class="container">
+    <div class="row">
+        <div th:object="${service}"
+             class="col-md-4 d-flex flex-column bg-text mb-3 rounded-circle">
+            <h2>Name <strong th:text="*{name}"></strong></h2>
+            <h4>Price: <strong th:text="*{price}"></strong></h4>
+            <h4>Category: <strong th:text="*{category}"></strong></h4>
+            <form method="post"
+                  th:action="@{'/admin/cosmeticService/' + ${id}}">
+                <button class="btn btn-danger align-bottom" type="submit">Delete company</button>
+            </form>
+        </div>
+    </div>
+    <footer th:replace="~{fragments/footer}"></footer>
+</div>
+</body>
+</html>

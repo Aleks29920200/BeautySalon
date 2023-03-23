@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/fragments/head}"></div>
+<body>
+<div th:replace="~{/fragments/navbar}"></div>
+<div class="card" >
+    <img class="card-img" src="/images/allServices.png" alt="picture">
+    <div class="card-img-overlay" th:action="@{/user/all-employees}">
+            <div class="text-center">
+                <h1>
+                    Employees
+                </h1>
+            </div>
+            <div>
+                <table class="table-dark table-responsive">
+                    <tr>
+                        <th data-th-text="#{label.employeeStart}">StartDate</th>
+                        <th data-th-text="#{label.employeeEnd}">EndDate</th>
+                        <th data-th-data="#{label.employeeAge}">Age</th>
+                        <th data-th-data="#{label.employeeFullName}">Full name</th>
+                        <th data-th-data="#{label.employeeIdentificationNumber}">Identification number</th>
+                        <th data-th-data="#{label.employeeSalary}">Salary</th>
+                        <th data-th-data="#{label.employeeAddress}">Address</th>
+                        <th data-th-data="#{label.employeeEmail}">Address</th>
+                        <th data-th-data="#{label.delete}">Delete</th>
+                    </tr>
+                    <tr th:each="employee : ${employees}"
+                        th:object="${employee}">
+                        <td th:text="${#temporals.format(employee.startOfWorkingDay,'HH:mm:ss')}"></td>
+                        <td th:text="${#temporals.format(employee.endOfWorkingDay,'HH:mm:ss')}"></td>
+                        <td th:text="${employee.age}"></td>
+                        <td th:text="${employee.fullName}"></td>
+                        <td th:text="${employee.identificationNumber}"></td>
+                        <td th:text="${employee.salary}"></td>
+                        <td th:text="${employee.address}"></td>
+                        <td th:text="${employee.email}"></td>
+                        <td>
+                            <a type="button"   th:if="${employee.id!=null}" class="btn-dark" th:href="@{'/boss/all-employees/' + ${employee.id}}">
+                            Delete
+                        </a></td>
+                    </tr>
+                </table>
+                </div>
+            </div>
+        </div>
+<footer th:replace="~{fragments/footer}"></footer>
+</body>
+</html>

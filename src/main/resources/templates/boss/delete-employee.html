@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/fragments/head}"></div>
+<body>
+<div class="container">
+  <div class="row">
+    <div th:object="${employee}"
+         class="col-md-4 d-flex flex-column bg-text mb-3 rounded-circle">
+      <h2>Name <strong th:text="*{fullName}"></strong></h2>
+      <h4>Age: <strong th:text="*{age}"></strong></h4>
+      <h4>Address: <strong th:text="*{address}"></strong></h4>
+      <h4>Start: <strong th:text="*{startOfWorkingDay}"></strong></h4>
+      <h4>End: <strong th:text="*{endOfWorkingDay}"></strong></h4>
+      <h4>Salary: <strong th:text="*{salary}"></strong></h4>
+      <h4>IdentificationNumber: <strong th:text="*{identificationNumber}"></strong></h4>
+      <form method="post"
+            th:action="@{'/boss/all-employees/' + ${id}}">
+        <button class="btn btn-danger align-bottom" type="submit">Delete employee</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

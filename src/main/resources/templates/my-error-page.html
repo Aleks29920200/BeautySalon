@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The page was not found</title>
+</head>
+<body>
+Sorry, the <em th:text="${objectType}"/> with ID <em th:text="${objectId}"/> was not found!
+Might be deleted or non-existing!
+Please return to the home page:
+<div>
+        <a type="submit" th:href="@{/home}">
+            Home
+        </a>
+</div>
+</body>
+</html>

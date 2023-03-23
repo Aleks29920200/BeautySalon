@@ -1,0 +1,42 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: 'TRUE'
+    hibernate:
+      ddl-auto: update
+    open-in-view: 'false'
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: 'true'
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    password: samsungga123@#456
+    username: root
+    url: jdbc:mysql://localhost:3306/beauty_salon?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+  mail:
+    host: localhost
+    port:  1025
+    username: "admin@gmail.com"
+    password: ""
+    protocol: smtp
+    default-encoding: UTF-8
+    test-connection: on
+    properties:
+      smtp.connectionTimeout: 5000
+      smtp.timeout: 5000
+      smtp.writeTimeout: 5000
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor: TRACE
+        SQL: DEBUG
+      nodeValue: WARN
+    blog: WARN
+server:
+  port: 8000
+

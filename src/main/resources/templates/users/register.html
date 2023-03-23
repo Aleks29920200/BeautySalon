@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<div th:replace="~{/fragments/head}"></div>
+<body>
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto col-12 justify-content-between" sec:authorize="isAnonymous()">
+      <li class="nav-item">
+        <a class="nav-link"  th:href="@{/users/register}" data-th-text="#{label.register}">Register</a>
+      </li>
+      <li class="nav-item" >
+        <a class="nav-link" th:href="@{/users/login}" data-th-text="#{label.login}">Login</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <h2 class="text-center text-white">Register with us (:</h2>
+  <form
+          method="post"
+          role="form"
+          th:action="@{/users/register}"
+  th:object="${registerDto}">
+    <div class="form-group mb-3">
+      <label  for="firstName" class="form-label">First Name</label>
+      <input
+              class="form-control"
+              id="firstName"
+              name="firstName"
+              placeholder="Enter first name"
+              th:field="*{firstName}"
+              type="text"
+      />
+      <p th:errors = "*{firstName}" class="text-danger"
+         th:if="${#fields.hasErrors('firstName')}"></p>
+    </div>
+
+    <div class="form-group mb-3">
+      <label  for="lastName" class="form-label">Last Name</label>
+      <input
+              class="form-control"
+              id="lastName"
+              name="lastName"
+              placeholder="Enter last name"
+              th:field="*{lastName}"
+              type="text"
+      />
+      <p th:errors = "*{lastName}" class="text-danger"
+         th:if="${#fields.hasErrors('lastName')}"></p>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="Enter email address"
+              th:field="*{email}"
+              type="email"
+      />
+      <p th:errors = "*{email}" class="text-danger"
+         th:if="${#fields.hasErrors('email')}"></p>
+    </div>
+    <div class="form-group mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input
+              class="form-control"
+              id="username"
+              name="username"
+              placeholder="Enter username"
+              th:field="*{username}"
+              type="text"
+      />
+      <p th:errors = "*{username}" class="text-danger"
+         th:if="${#fields.hasErrors('username')}"></p>
+    </div>
+    <div class="form-group mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Enter password"
+              th:field="*{password}"
+              type="password"
+      />
+      <p th:errors = "*{password}" class="text-danger"
+         th:if="${#fields.hasErrors('password')}"></p>
+    </div>
+    <div class="form-group mb-3">
+      <label for="confirmPassword" class="form-label">Confirm Password</label>
+      <input
+              class="form-control"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Enter password"
+              th:field="*{confirmPassword}"
+              type="password"
+      />
+      <p th:errors = "*{confirmPassword}" class="text-danger"
+         th:if="${#fields.hasErrors('confirmPassword')}"></p>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit">Register</button>
+      <span>Already registered? <a th:href="@{/users/login}">Login here</a></span>
+    </div>
+  </form>
+  <footer th:replace="~{fragments/footer}"></footer>
+</div>
+</body>
+</html>
