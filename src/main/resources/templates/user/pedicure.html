@@ -15,7 +15,7 @@
                     <h1>Pedicure</h1>
                     <div th:each="pedicure : ${allServices}"
                          th:object="${pedicure}"
-                         th:if="${pedicure.category==T(com.example.dealership1.domain.entity.ServiceCategory).PEDICURE}"
+                         th:if="${pedicure.category==T(com.example.beautySalon.domain.entity.ServiceCategory).PEDICURE}"
                          class="col-md-4 d-flex flex-column bg-text mb-3 rounded-pill">
                         <h2>Name: <strong th:text="*{name}"></strong></h2>
                         <h4>Price: <strong th:text="*{price}"></strong></h4>

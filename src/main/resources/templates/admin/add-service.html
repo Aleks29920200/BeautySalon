@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <label for="category" data-th-text="#{label.serviceCategory}">Select Topic</label>
                     <select class="form-control" id="category" th:field="*{category}">
-                        <option th:each="category : ${T(com.example.dealership1.domain.entity.ServiceCategory).values()}"
+                        <option th:each="category : ${T(com.example.beautySalon.domain.entity.ServiceCategory).values()}"
                                name="category"  th:value="${category}" th:text="${category}"></option>
                     </select>
                 </div>
