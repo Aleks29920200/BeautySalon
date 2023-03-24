@@ -1,5 +1,6 @@
 package com.example.dealership1.schedulingJobs;
 
+import com.example.dealership1.domain.dto.view.EmployeeViewDto;
 import com.example.dealership1.domain.entity.Employee;
 import com.example.dealership1.services.EmailService;
 import com.example.dealership1.services.EmployeeService;
@@ -39,7 +40,7 @@ public class EmailScheduleJob {
 
    // @Scheduled(cron = "* * 15 22 3 ?")
     public void christmasScheduleJob() {
-       List<Employee> employees = this.employeeService.allEmployees();
+       List<EmployeeViewDto> employees = this.employeeService.allEmployees();
         employees.forEach(employee -> emailService.sendEmail(
                 employee.getEmail(), EmailConstants.CHRISTMAS_MESSAGE_TITLE, EmailConstants.CHRISTMAS_MESSAGE_TEXT));
     }

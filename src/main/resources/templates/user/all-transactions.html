@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <div th:replace="~{/fragments/head}"></div>
 <body>
 <div th:replace="~{/fragments/navbar}"></div>
@@ -16,9 +16,9 @@
                 <tr>
                     <th data-th-text="#{label.employeeStart}">StartDate</th>
                     <th data-th-text="#{label.employeeEnd}">EndDate</th>
-                    <th >ServiceName</th>
-                    <th >ServicePrice</th>
-                    <th >Amount</th>
+                    <th data-th-text="#{label.serviceName}">ServiceName</th>
+                    <th data-th-text="#{label.servicePrice}">ServicePrice</th>
+                    <th data-th-text="#{label.billAmount}">Amount</th>
                 </tr>
                 <tr th:each="transaction : ${allTransactions}"
                 th:object="${transaction}">

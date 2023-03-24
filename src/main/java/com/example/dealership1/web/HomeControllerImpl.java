@@ -16,27 +16,24 @@ import java.security.Principal;
 
 
 @Controller
-public class HomeController{
+public class HomeControllerImpl implements HomeController{
     private UserServiceImpl userService;
 
     private ModelMapper mapper;
-    public HomeController(UserServiceImpl userService, ModelMapper mapper) {
+    public HomeControllerImpl(UserServiceImpl userService, ModelMapper mapper) {
         this.userService = userService;
         this.mapper = mapper;
     }
 
-    @GetMapping("/index")
-   @PreAuthorize(value = "isAnonymous()")
+    @Override
     public String index() {
         return "index";
     }
-    @PostMapping("/index?language")
-    @PreAuthorize(value = "isAnonymous()")
+    @Override
     public String indexLanguageToEnglish() {
         return "index";
     }
-    @GetMapping("/home")
-   @PreAuthorize(value = "isAuthenticated()")
+    @Override
     public String home(Principal principal,ModelAndView modelAndView){
         modelAndView.addObject("username",principal.getName());
         return "home";

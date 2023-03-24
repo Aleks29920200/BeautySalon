@@ -45,9 +45,9 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public AddTransactionDto fillTransactionDto(String username, ServiceDto map) {
         AddTransactionDto transaction=new AddTransactionDto();
-        transaction.setStartDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        transaction.setStartDate(LocalDateTime.now().toString());
         LocalDateTime dateTime = LocalDateTime.now().plusDays(1);
-        transaction.setExpirationDate(dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        transaction.setExpirationDate(dateTime.toString());
         transaction.setServiceName(map);
         transaction.setBillDto(mapper.map(this.billService.addBill(map), BillDto.class));
         transaction.setUser(mapper.map(this.userService.findUserByUsername(username), UserDto.class));
@@ -70,8 +70,8 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void saveTransaction(AddTransactionDto fillTransactionDto) {
         Transaction transaction=new Transaction();
-        transaction.setStartDate(LocalDateTime.parse(fillTransactionDto.getStartDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        transaction.setExpirationDate(LocalDateTime.parse(fillTransactionDto.getExpirationDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        transaction.setStartDate(LocalDateTime.parse(fillTransactionDto.getStartDate()));
+        transaction.setExpirationDate(LocalDateTime.parse(fillTransactionDto.getExpirationDate()));
         transaction.setService(mapper.map(fillTransactionDto.getServiceName(),com.example.dealership1.domain.entity.Service.class));
         transaction.setBill(this.billService.findById(fillTransactionDto.getBillDto().getId()));
         transaction.setUser(mapper.map(this.userService.findUserByUsername(fillTransactionDto.getUser().getUsername()),User.class));

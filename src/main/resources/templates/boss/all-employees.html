@@ -16,13 +16,12 @@
                     <tr>
                         <th data-th-text="#{label.employeeStart}">StartDate</th>
                         <th data-th-text="#{label.employeeEnd}">EndDate</th>
-                        <th data-th-data="#{label.employeeAge}">Age</th>
-                        <th data-th-data="#{label.employeeFullName}">Full name</th>
-                        <th data-th-data="#{label.employeeIdentificationNumber}">Identification number</th>
-                        <th data-th-data="#{label.employeeSalary}">Salary</th>
-                        <th data-th-data="#{label.employeeAddress}">Address</th>
-                        <th data-th-data="#{label.employeeEmail}">Address</th>
-                        <th data-th-data="#{label.delete}">Delete</th>
+                        <th data-th-text="#{label.employeeAge}">Age</th>
+                        <th data-th-text="#{label.employeeFullName}">Full name</th>
+                        <th data-th-text="#{label.employeeIdentificationNumber}">Identification number</th>
+                        <th data-th-text="#{label.employeeSalary}">Salary</th>
+                        <th data-th-text="#{label.employeeAddress}">Address</th>
+                        <th data-th-text="#{label.employeeEmail}">Email</th>
                     </tr>
                     <tr th:each="employee : ${employees}"
                         th:object="${employee}">

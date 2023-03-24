@@ -15,11 +15,11 @@ import java.util.Base64;
 
 
 @Controller
-public class QRCodeController {
+public class QRCodeControllerImpl implements QrCodeController{
         private static final String QR_CODE_IMAGE_PATH = "src/main/resources/static/images/QRCode.png";
         private QRCodeService qrCodeService;
 
-    public QRCodeController(QRCodeService qrCodeService) {
+    public QRCodeControllerImpl(QRCodeService qrCodeService) {
         this.qrCodeService = qrCodeService;
     }
 

@@ -4,9 +4,12 @@ package com.example.dealership1.domain.dto.binding;
 import com.example.dealership1.domain.dto.service.BillDto;
 import com.example.dealership1.domain.dto.service.ServiceDto;
 import com.example.dealership1.domain.dto.service.UserDto;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.PastOrPresent;
+
+import java.time.LocalDateTime;
 
 public class AddTransactionDto {
-
     private String startDate;
     private String expirationDate;
     private boolean cancelled;
@@ -53,6 +56,7 @@ public class AddTransactionDto {
     public void setUser(UserDto user) {
         this.user = user;
     }
+
 
     public String getStartDate() {
         return startDate;

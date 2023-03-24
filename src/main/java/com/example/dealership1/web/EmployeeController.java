@@ -4,86 +4,36 @@ import com.example.dealership1.domain.dto.binding.AddEmployeeDto;
 import com.example.dealership1.domain.dto.error.ObjectNotFoundException;
 import com.example.dealership1.domain.dto.service.EmployeeDto;
 import com.example.dealership1.domain.dto.view.EmployeeViewDto;
-import com.example.dealership1.domain.entity.Employee;
-import com.example.dealership1.services.EmployeeServiceImpl;
 import jakarta.validation.Valid;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Collectors;
-
 @Controller
-@RequestMapping("/boss/")
-public class EmployeeController {
-    private EmployeeServiceImpl employeeService;
-    private ModelMapper mapper;
-
-    public EmployeeController(EmployeeServiceImpl employeeService, ModelMapper mapper) {
-        this.employeeService = employeeService;
-        this.mapper = mapper;
-    }
+public interface EmployeeController {
     @GetMapping("add-employee")
-   @PreAuthorize("hasRole('ROLE_BOSS')")
-    public String addService(){
-        return "/boss/add-employee";
-    }
+    @PreAuthorize("hasRole('ROLE_BOSS')")
+    public String addService();
     @PostMapping("add-employee")
-   @PreAuthorize("hasRole('ROLE_BOSS')")
+    @PreAuthorize("hasRole('ROLE_BOSS')")
     public String service(@Valid @ModelAttribute("addEmployeeDto") AddEmployeeDto addEmployeeDto,
                           BindingResult bindingResult,
-                          RedirectAttributes attr){
-        if(bindingResult.hasErrors()){
-            attr
-                    .addFlashAttribute("addEmployeeDto", addEmployeeDto)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.addEmployeeDto", bindingResult);
-            return "redirect:/boss/add-employee";
-        }
-       this.employeeService.addEmployee(addEmployeeDto);
-        return "redirect:/home";
-    }
+                          RedirectAttributes attr);
     @GetMapping("all-employees")
     @PreAuthorize("hasRole('ROLE_BOSS')")
-    public String allServices(Model model){
-        List<EmployeeViewDto> all =this.employeeService.allEmployees();
-        model.addAttribute("employees",all);
-        return "/boss/all-employees";
-    }
+    public String allServices(Model model);
     @GetMapping("all-employees/{id}")
-     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView delete(@PathVariable Long id, ModelAndView model) throws ObjectNotFoundException {
-        EmployeeDto employeeById = this.employeeService.findEmployeeById(id);
-        model.setViewName("/boss/delete-employee");
-        model.addObject("employee",employeeById);
-        return model;
-    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView delete(@PathVariable Long id, ModelAndView model) throws ObjectNotFoundException;
     @PostMapping("all-employees/{id}")
-   @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String delete(@PathVariable Long id){
-        this.employeeService.deleteById(id);
-        return "redirect:/boss/all-employees";
-    }
-    @ModelAttribute(name="employees")
-    public List<EmployeeViewDto> allServices() {
-        return this.employeeService.allEmployees();
-    }
-    @ModelAttribute("start")
-    public LocalTime time() {
-        return addEmployeeDto().getStartOfWorkingDay();
-    }
-    @ModelAttribute("end")
-    public LocalTime timeEnd() {
-        return addEmployeeDto().getEndOfWorkingDay();
-    }
-    @ModelAttribute
-    public AddEmployeeDto addEmployeeDto() {
-        return new AddEmployeeDto();
-    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String delete(@PathVariable Long id);
 }

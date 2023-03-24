@@ -4,30 +4,18 @@ import com.example.dealership1.domain.dto.service.BillDto;
 import com.example.dealership1.domain.dto.service.ServiceDto;
 import com.example.dealership1.domain.entity.BaseEntity;
 
+import java.time.LocalDateTime;
+
 public class TransactionViewDto extends BaseEntity{
-    private String startDate;
-    private String expirationDate;
+    private LocalDateTime startDate;
+    private LocalDateTime expirationDate;
     private BillViewDto bill;
     private ServiceViewDto service;
 
     public TransactionViewDto() {
     }
 
-    public String getStartDate() {
-        return startDate;
-    }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(String expirationDate) {
-        this.expirationDate = expirationDate;
-    }
 
     public ServiceViewDto getService() {
         return service;
@@ -43,5 +31,21 @@ public class TransactionViewDto extends BaseEntity{
 
     public void setBill(BillViewDto bill) {
         this.bill = bill;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(LocalDateTime expirationDate) {
+        this.expirationDate = expirationDate;
     }
 }

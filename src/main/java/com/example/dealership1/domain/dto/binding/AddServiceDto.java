@@ -15,7 +15,9 @@ public class AddServiceDto {
     @Positive(message = "Price must be positive number")
     private Float price;
     private String category;
+    @NotBlank
     private String info;
+
     private FileDto img;
     public AddServiceDto() {
     }

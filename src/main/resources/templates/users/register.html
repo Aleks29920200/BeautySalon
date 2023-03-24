@@ -22,11 +22,12 @@
           th:action="@{/users/register}"
   th:object="${registerDto}">
     <div class="form-group mb-3">
-      <label  for="firstName" class="form-label">First Name</label>
+      <label  for="firstName" class="form-label" data-th-text="#{label.firstName}">First Name</label>
       <input
               class="form-control"
               id="firstName"
               name="firstName"
+              data-th-placeholder="#{label.firstName}"
               placeholder="Enter first name"
               th:field="*{firstName}"
               type="text"
@@ -36,11 +37,12 @@
     </div>
 
     <div class="form-group mb-3">
-      <label  for="lastName" class="form-label">Last Name</label>
+      <label  for="lastName" class="form-label" data-th-text="#{label.lastName}">Last Name</label>
       <input
               class="form-control"
               id="lastName"
               name="lastName"
+              data-th-placeholder="#{label.lastName}"
               placeholder="Enter last name"
               th:field="*{lastName}"
               type="text"
@@ -50,11 +52,12 @@
     </div>
 
     <div class="form-group mb-3">
-      <label for="email" class="form-label">Email</label>
+      <label for="email" class="form-label" data-th-text="#{label.employeeEmail}">Email</label>
       <input
               class="form-control"
               id="email"
               name="email"
+              data-th-placeholder="#{label.employeeEmail}"
               placeholder="Enter email address"
               th:field="*{email}"
               type="email"
@@ -63,11 +66,12 @@
          th:if="${#fields.hasErrors('email')}"></p>
     </div>
     <div class="form-group mb-3">
-      <label for="username" class="form-label">Username</label>
+      <label for="username" class="form-label" data-th-text="#{label.username}">Username</label>
       <input
               class="form-control"
               id="username"
               name="username"
+              data-th-placeholder="#{label.username}"
               placeholder="Enter username"
               th:field="*{username}"
               type="text"
@@ -76,11 +80,12 @@
          th:if="${#fields.hasErrors('username')}"></p>
     </div>
     <div class="form-group mb-3">
-      <label for="password" class="form-label">Password</label>
+      <label for="password" class="form-label" data-th-text="#{label.password}">Password</label>
       <input
               class="form-control"
               id="password"
               name="password"
+              data-th-placeholder="#{label.password}"
               placeholder="Enter password"
               th:field="*{password}"
               type="password"
@@ -89,11 +94,12 @@
          th:if="${#fields.hasErrors('password')}"></p>
     </div>
     <div class="form-group mb-3">
-      <label for="confirmPassword" class="form-label">Confirm Password</label>
+      <label for="confirmPassword" class="form-label" data-th-text="#{label.confirmPassword}">Confirm Password</label>
       <input
               class="form-control"
               id="confirmPassword"
               name="confirmPassword"
+              data-th-placeholder="#{label.confirmPassword}"
               placeholder="Enter password"
               th:field="*{confirmPassword}"
               type="password"
@@ -102,8 +108,8 @@
          th:if="${#fields.hasErrors('confirmPassword')}"></p>
     </div>
     <div class="form-group">
-      <button class="btn btn-primary" type="submit">Register</button>
-      <span>Already registered? <a th:href="@{/users/login}">Login here</a></span>
+      <button class="btn btn-primary" type="submit" data-th-text="#{label.register}">Register</button>
+      <span> <a data-th-text="#{label.alreadyRegistered}" th:href="@{/users/login}"> Already registered? Login here</a></span>
     </div>
   </form>
   <footer th:replace="~{fragments/footer}"></footer>

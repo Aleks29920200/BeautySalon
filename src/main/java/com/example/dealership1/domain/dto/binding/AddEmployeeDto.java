@@ -18,12 +18,15 @@ public class AddEmployeeDto {
     @NotBlank
     private String address;
     @DateTimeFormat(pattern = "HH:mm:ss")
+    @PastOrPresent
     private LocalTime startOfWorkingDay;
     @DateTimeFormat(pattern = "HH:mm:ss")
+    @FutureOrPresent
     private LocalTime endOfWorkingDay;
     @Positive(message = "Salary must be positive number!")
     private Double salary;
     @NotBlank
+    @Size(min = 8)
     @UniqueIdentificationNumber
     private String identificationNumber;
     @Email
