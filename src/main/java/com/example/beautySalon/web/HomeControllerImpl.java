@@ -1,6 +1,7 @@
 package com.example.beautySalon.web;
 
 
+import com.example.beautySalon.services.ServiceImpl;
 import com.example.beautySalon.services.UserServiceImpl;
 import org.modelmapper.ModelMapper;
 
@@ -18,15 +19,26 @@ public class HomeControllerImpl implements HomeController{
     private UserServiceImpl userService;
 
     private ModelMapper mapper;
-    public HomeControllerImpl(UserServiceImpl userService, ModelMapper mapper) {
+    private ServiceImpl service;
+    public HomeControllerImpl(UserServiceImpl userService, ModelMapper mapper, ServiceImpl service) {
         this.userService = userService;
         this.mapper = mapper;
+        this.service = service;
     }
 
     @Override
-    public String index() {
+    public String index(Principal principal) {
+        if(principal!=null){
+            return "home";
+        }
         return "index";
     }
+
+    @Override
+    public String about() {
+        return "users/about";
+    }
+
     @Override
     public String indexLanguageToEnglish() {
         return "index";
@@ -34,6 +46,7 @@ public class HomeControllerImpl implements HomeController{
     @Override
     public String home(Principal principal,ModelAndView modelAndView){
         modelAndView.addObject("username",principal.getName());
+        modelAndView.addObject("services",this.service.allServices());
         return "home";
     }
     @PostMapping("/logout")

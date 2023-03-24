@@ -11,6 +11,9 @@
         <h4>Price: <strong th:text="*{billDto.amount}"></strong></h4>
         <h4>Price: <strong th:text="*{serviceName.price}"></strong></h4>
     </div>
+    <div class="text-center">
+        <a type="submit" class="btn btn-primary" th:href="@{/home}">Back</a>
+    </div>
 </div>
 <footer th:replace="~{fragments/footer}"></footer>
 </body>

@@ -2,6 +2,7 @@ package com.example.beautySalon.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.List;

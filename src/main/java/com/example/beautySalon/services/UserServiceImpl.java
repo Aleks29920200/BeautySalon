@@ -10,6 +10,7 @@ import com.example.beautySalon.repositories.UserRepo;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +32,9 @@ public class UserServiceImpl implements UserService{
         this.userDto = userDto;
         this.passwordEncoder = passwordEncoder;
     }
+
+
+
     @Override
     public User findUserByEmail(String email) {
         return this.userRepo.findUserByEmail(email).orElse(null);

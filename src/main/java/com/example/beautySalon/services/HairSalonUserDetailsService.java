@@ -18,7 +18,7 @@ public class HairSalonUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
        var user= userRepo.findUserByUsername(username);
-        User user1 = user
+        return user
                 .map(u -> new User(
                         u.getUsername(),
                         u.getPassword(),
@@ -26,7 +26,6 @@ public class HairSalonUserDetailsService implements UserDetailsService {
                                 .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getAuthority()))
                                 .collect(Collectors.toSet())
                 )).orElseThrow(() -> new UsernameNotFoundException(username + " was not found!"));
-        return user1;
     }
 
 }

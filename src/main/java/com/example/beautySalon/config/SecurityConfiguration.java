@@ -14,11 +14,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.cors().disable()
-                .csrf().disable().authorizeRequests()
+        httpSecurity.
+                cors().
+                disable()
+                .csrf().
+                disable()
+                .authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .requestMatchers("/index","/users/login", "/users/register","/index?language").anonymous()
-                .requestMatchers("/home").authenticated()
+                .requestMatchers("/index","/users/login", "/users/register","/index?language","/").anonymous()
+                .requestMatchers("/home").fullyAuthenticated()
                 .requestMatchers("/logout").authenticated()
                 .requestMatchers("/profile").authenticated()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -34,7 +38,7 @@ public class SecurityConfiguration {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/").
+                .logoutSuccessUrl("/index").
                 clearAuthentication(true);
         return httpSecurity.build();
     }

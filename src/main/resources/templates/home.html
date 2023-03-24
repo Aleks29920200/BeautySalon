@@ -3,14 +3,16 @@
 <div th:replace="~{/fragments/head}"></div>
 <body>
 <div th:replace="~{/fragments/navbar}"></div>
-<div class="card" >
+<div class="card">
   <img class="card-img" src="/images/home.png" alt="picture">
   <div class="card-img-overlay">
-    <h2 class="text-center text-white-50">Welcome to home page</h2>
-    <div sec:authorize="isAuthenticated()">
-      <h1 class="align-text-bottom text-white" th:text="${username}"></h1>
+    <div class="container">
+      <h1 class="text-center">Welcome to our salon</h1>
+      <div class="embed-responsive embed-responsive-16by9 ">
+        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/k0UXcWkh5I8" height="0" width="100"></iframe>
+      </div>
     </div>
-</div>
+  </div>
 </div>
 </body>
 </html>
