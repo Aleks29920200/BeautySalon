@@ -49,8 +49,7 @@ public class HomeControllerImpl implements HomeController{
         modelAndView.addObject("services",this.service.allServices());
         return "home";
     }
-    @PostMapping("/logout")
-    @PreAuthorize("isAuthenticated()")
+    @Override
     public String getLogout(){
         return "redirect:/";
     }

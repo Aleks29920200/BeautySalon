@@ -4,6 +4,7 @@ import com.example.beautySalon.domain.dto.binding.AddServiceDto;
 import com.example.beautySalon.domain.dto.error.ObjectNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-
+@Controller
 public interface ServiceController {
     @GetMapping("/admin/add-service")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -24,8 +25,8 @@ public interface ServiceController {
     public String service(@Valid @ModelAttribute("addServiceDto") AddServiceDto addServiceDto,
                           BindingResult bindingResult,
                           RedirectAttributes attr) throws IOException;
-    @GetMapping("/admin/cosmeticService")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/cosmeticService")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public String allServices(Model model);
     @GetMapping("/admin/cosmeticService/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -33,22 +34,16 @@ public interface ServiceController {
     @PostMapping("/admin/cosmeticService/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String delete(@PathVariable Long id);
-    @GetMapping("/user/makeUp")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/makeUp")
     public String makeUp();
-    @GetMapping("/user/pedicure")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/pedicure")
     public String pedicure();
-    @GetMapping("/user/massages")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/massages")
     public String massages();
-    @GetMapping("/user/manicure")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/manicure")
     public String manicure();
-    @GetMapping("/user/hairdressing")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/hairdressing")
     public String hairdressing();
-    @GetMapping("/user/manicure/{id}")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/manicure/{id}")
     public ModelAndView info(@PathVariable Long id, ModelAndView model) throws ObjectNotFoundException;
 }

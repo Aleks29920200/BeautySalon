@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{/fragments/head}"></div>
 <body>
-<div class="card" th:object="${manicureType}" th:action="@{'/user/manicure/' + ${manicureType.id}}"  >
+<div class="card" th:object="${manicureType}" th:action="@{'/manicure/' + ${manicureType.id}}"  >
   <img class="card-img" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(manicureType.img.fileData)}" />
   <div class="card-img-overlay">
 <div class="container">

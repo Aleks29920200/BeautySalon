@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 
 @Controller
-public class ProfileControllerImpl {
+public class ProfileControllerImpl implements ProfileController{
     private UserServiceImpl userService;
     private ModelMapper mapper;
 
@@ -20,8 +20,7 @@ public class ProfileControllerImpl {
         this.mapper = mapper;
     }
 
-    @GetMapping("/profile")
-   @PreAuthorize("isAuthenticated()")
+    @Override
     public ModelAndView profile(Principal principal, ModelAndView modelAndView){
         UserViewDto userByUsername = mapper.map(this.userService.findUserByUsername(principal.getName()), UserViewDto.class);
         modelAndView.setViewName("/profile");

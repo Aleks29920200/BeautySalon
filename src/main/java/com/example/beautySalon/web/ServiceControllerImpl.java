@@ -9,7 +9,6 @@ import com.example.beautySalon.domain.dto.view.ServiceViewDto;
 import com.example.beautySalon.domain.entity.Service;
 import com.example.beautySalon.repositories.ServiceRepo;
 import com.example.beautySalon.services.UserServiceImpl;
-import com.example.beautySalon.services.*;
 import com.example.beautySalon.util.ImageUtil;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -62,7 +61,7 @@ public class ServiceControllerImpl implements ServiceController{
     public String allServices(Model model){
         List<ServiceViewDto> all = this.service.allServices();
         model.addAttribute("services",all);
-        return "/admin/cosmeticService";
+        return "/cosmeticService";
     }
     @Override
     public ModelAndView delete(@PathVariable Long id, ModelAndView model) throws ObjectNotFoundException {
@@ -79,28 +78,28 @@ public class ServiceControllerImpl implements ServiceController{
     }
     @Override
     public String makeUp(){
-        return "/user/makeUp";
+        return "/makeUp";
     }
     @Override
     public String pedicure(){
-        return "/user/pedicure";
+        return "/pedicure";
     }
     @Override
     public String massages(){
-        return "/user/massages";
+        return "/massages";
     }
     @Override
     public String manicure(){
-        return "/user/manicure";
+        return "/manicure";
     }
     @Override
     public String hairdressing(){
-        return "/user/hairdressing";
+        return "/hairdressing";
     }
     @Override
     public ModelAndView info(@PathVariable Long id, ModelAndView model) throws ObjectNotFoundException {
         ServiceViewDto serviceById = this.service.findServiceById(id);
-        model.setViewName("/user/ManicureTypes");
+        model.setViewName("/ManicureTypes");
         model.addObject("manicureType",serviceById);
         model.addObject("imgUtil", new ImageUtil());
         return model;
@@ -113,6 +112,4 @@ public class ServiceControllerImpl implements ServiceController{
     public List<Service> allServices() {
         return this.serviceRepo.findAll();
     }
-
-
 }

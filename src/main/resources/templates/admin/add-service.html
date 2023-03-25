@@ -18,9 +18,10 @@
                     name="name"
                     placeholder="Name"
                     th:field="*{name}"
+                    data-th-value="#{label.serviceName}"
                     type="text"
             />
-            <p th:errors = "*{name}" class="text-danger"
+            <p th:errors = "*{name}"  class="text-danger"
                th:if="${#fields.hasErrors('name')}"></p>
         </div>
         <div class="form-group mb-3">

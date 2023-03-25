@@ -33,7 +33,7 @@
                                     method="post"
                                     class="form-horizontal">
                                 <div class="flex-column">
-                                    <div th:if="${param.error}" class="alert alert-danger">Wrong username or password!</div>
+                                    <div th:if="${param.error}" data-th-text="#{label.wrongUsernameOrPassword}" class="alert alert-danger">Wrong username or password!</div>
                                     <label for="username" class="text-center" data-th-text="#{label.username}">Username</label>
                                     <div class="col-sm-10">
                                         <input

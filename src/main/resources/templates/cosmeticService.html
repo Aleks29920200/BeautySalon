@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:replace="~{/fragments/head}"></div>
+<body>
+<div th:replace="~{/fragments/navbar}"></div>
+<div class="card" sec:authorize="hasRole('ROLE_ADMIN')">
+    <img class="card-img" src="/images/allServices.png" alt="picture">
+    <div class="card-img-overlay" th:action="@{/cosmeticService}">
+        <div class="card-img-overlay" >
+            <div class="text-center">
+                <h1>
+                   Services
+                </h1>
+            </div>
+            <div>
+                <table class="table-dark table-responsive">
+                    <tr>
+                        <th data-th-text="#{label.serviceName}">Name</th>
+                        <th data-th-text="#{label.servicePrice}">Price</th>
+                        <th data-th-text="#{label.serviceCategory}">Category</th>
+                        <th data-th-text="#{label.serviceInfo}">Info</th>
+                    </tr>
+                    <tr th:each="service : ${allServices}"
+                        th:object="${service}">
+                        <td th:text="${service.name}"></td>
+                        <td th:text="${service.price}"></td>
+                        <td th:text="${service.category}"></td>
+                        <td th:text="${service.info}"></td>
+                        <td>
+                            <a type="button" th:if="${service.id!=null}" class="btn-dark" th:href="@{'/admin/cosmeticService/' + ${service.id}}">
+                                Delete
+                            </a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div sec:authorize="hasRole('ROLE_USER')">
+    <div class="card">
+        <img class="card-img" src="/images/img.png">
+    <div class=" card-img-overlay">
+        <div class="text-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text">
+                            <h2>Ритуали за Лице</h2>
+                            <p></p>
+                            <a th:href="@{/makeUp}" title="">Виж повече</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <img class="card-img" src="/images/hairdressing.png">
+    <div class=" card-img-overlay ">
+        <div class="text-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text">
+                            <h2>Церемонии  за Коса</h2>
+                            <p></p>
+                            <a th:href="@{/hairdressing}" title="">Виж повече</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="card">
+            <img class="card-img" src="/images/nails.png" >
+    <div class=" card-img-overlay">
+        <div class="text-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text">
+                            <h2>Цветен Бар</h2>
+                            <p></p>
+                            <a th:href="@{/manicure}" title="">Виж повече</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            <div class="card">
+                <img class="card-img" src="/images/pedicure.png" >
+    <div class=" card-img-overlay">
+        <div class="text-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text">
+                            <h2>Обичаш да показваш ноктите си</h2>
+                            <p></p>
+                            <a th:href="@{/pedicure}" title="">Виж повече</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                <div class="card">
+                    <img class="card-img" src="/images/massage.png" >
+    <div class=" card-img-overlay">
+        <div class="text-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text">
+                            <h2>Магията на грима</h2>
+                            <p></p>
+                            <a th:href="@{/massages}" title="">Виж повече</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+    </div>
+</div>
+    </div>
+</div>
+</body>
+</html>

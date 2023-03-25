@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div th:replace="~{/fragments/head}"></div>
 <body>
 <div th:replace="~{/fragments/navbar}"></div>
@@ -19,11 +19,11 @@
                          class="col-md-4 d-flex flex-column bg-text mb-3 rounded-pill">
                         <h2>Name: <strong th:text="*{name}"></strong></h2>
                         <h4>Price: <strong th:text="*{price}"></strong></h4>
-                        <form method="post"
+                        <form method="post" sec:authorize="hasRole('ROLE_USER')"
                               th:action="@{'/user/add-transaction/cosmeticService/' + ${makeup.id}}">
                             <button class="btn btn-dark align-bottom" type="submit">Purchase</button>
                         </form>
-                        <a type="button" class="btn-dark"  th:href="@{'/user/manicure/' + ${makeup.id}}">
+                        <a type="button" class="btn-dark"  th:href="@{'/manicure/' + ${makeup.id}}">
                             Info
                         </a>
                     </div>

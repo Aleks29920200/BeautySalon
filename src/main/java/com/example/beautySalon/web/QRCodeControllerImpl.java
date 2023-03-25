@@ -21,8 +21,7 @@ public class QRCodeControllerImpl implements QrCodeController{
         this.qrCodeService = qrCodeService;
     }
 
-    @GetMapping("/user/all-transactions/qrcode")
-    @PreAuthorize("hasRole('USER')")
+    @Override
         public String getQRCode(Model model) {
             byte[] image = new byte[0];
             try {

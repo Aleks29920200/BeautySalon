@@ -1,21 +1,102 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="~{/fragments/head}"></div>
+<head>
+    <meta charset="UTF-8">
+    <title>Dealership</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
 <body>
 <div class="card">
-  <nav th:replace="~{/fragments/navbar}"></nav>
   <img class="card-img" src="/images/home.png" alt="picture">
   <div class="card-img-overlay" th:action="@{/index}">
+      <nav th:replace="~{/fragments/navbar}"></nav>
       <div class="container">
-        <h1 class="text-center">Welcome to our salon</h1>
+        <h1 class="text-center" data-th-text="#{label.welcome}">Welcome to our salon</h1>
         <div class="embed-responsive embed-responsive-16by9 ">
           <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/k0UXcWkh5I8" height="0" width="100"></iframe>
         </div>
       </div>
 </div>
 </div>
-<div>
+<div class="card">
+    <img class="card-img" src="/images/img.png" alt="picture">
+<div class="container card-img-overlay text-center">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <li data-target="#myCarousel" data-slide-to="4"></li>
+            <li data-target="#myCarousel" data-slide-to="5"></li>
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="https://i.pinimg.com/736x/8d/8d/ef/8d8def32260c76ae9eb0b521d006af9f.jpg" alt="Los Angeles" style="width:80%;">
+                <div class="carousel-caption">
+                    <h3>
+                        <a class="btn-dark" data-th-text="#{label.manicure}" th:href="@{/manicure}">Manicure</a>
+                    </h3>
+                </div>
+            </div>
+            <div class="item">
+                <img src="https://img.freepik.com/free-photo/close-up-hands-massaging-person-s-back_23-2148815296.jpg?w=2000" alt="Chicago" style="width:80%;">
+                <div class="carousel-caption">
+                    <h3>
+                        <a class="btn-dark" data-th-text="#{label.massages}" th:href="@{/massages}">Massages</a>
+                    </h3>
+                </div>
+            </div>
+            <div class="item">
+                <img src="https://media.istockphoto.com/id/545984710/photo/woman-in-nail-salon-receiving-pedicure-by-beautician.jpg?s=612x612&w=0&k=20&c=d26Cv1GHDJhwBR8Fi1QGQRnCVZFIHF5Wd2e2W7Vu4b8=" alt="Chicago" style="width:80%;">
+                <div class="carousel-caption">
+                    <h3>
+                        <a class="btn-dark" data-th-text="#{label.pedicure}" th:href="@{/pedicure}">Pedicure</a>
+                    </h3>
+                </div>
+            </div>
+            <div class="item">
+                <img src="https://www.salonsdirect.com/blog/wp-content/uploads/2017/08/How-to-run-a-hairdressing-business-from-home.jpg" alt="Chicago" style="width:80%;">
+                <div class="carousel-caption">
+                    <h3>
+                        <a class="btn-dark" data-th-text="#{label.hairdressing}" th:href="@{/hairdressing}">Hairdressing</a>
+                    </h3>
+                </div>
+            </div>
+            <div class="item">
+                <img src="https://media.istockphoto.com/id/1221677097/photo/make-up-cosmetics-products-against-pink-color-background.jpg?s=612x612&w=0&k=20&c=nGFL8_thw9YEXYDCMRs0YK2AnLCXAP8ENSkribDsC6k=" alt="Chicago" style="width:80%;">
+                <div class="carousel-caption">
+                    <h3>
+                        <a class="btn-dark" data-th-text="#{label.makeUp}" th:href="@{/makeUp}">Make up</a>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only" data-th-value="#{label.previous}">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only" data-th-value="#{label.next}">Next</span>
+        </a>
+    </div>
 </div>
+</div>
+<div class="card">
+    <img class="card-img" src="https://www.macmillandictionary.com/external/slideshow/full/White_full.png" alt="picture">
+    <div class="card-img-overlay" >
 <div class="container bootstrap snippets bootdeys">
     <!-- end row -->
     <div class="row">
@@ -32,8 +113,8 @@
                     <div class="contact-detail-box">
                         <i class="fa fa-th fa-3x text-colored"></i>
                         <h4>Get In Touch</h4>
-                        <abbr title="Phone">P:</abbr>+35987564534<br>
-                        E: <a href="mailto:email@email.com" class="text-muted">beautySalon@email.com</a>
+                        <abbr title="Phone">Phone:</abbr>+35987564534<br>
+                        <a href="mailto:email@email.com" class="text-muted">beautySalon@email.com</a>
                     </div>
                 </div><!-- end col -->
 
@@ -56,11 +137,12 @@
                         <p>9:00-18:00</p>
                     </div>
                 </div><!-- end col -->
-
             </div>
         </div><!-- end col -->
     </div> <!-- end row -->
 </div>
-<footer th:replace="~{/fragments/footer}"></footer>
+        <footer th:replace="~{/fragments/footer}"></footer>
+    </div>
+</div>
 </body>
 </html>

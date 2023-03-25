@@ -18,11 +18,11 @@ public class FileUploadControllerImpl implements FileUploadController {
     this.fileService = fileService;
   }
 
-  @GetMapping("/upload")
+  @Override
   public String upload() {
     return "upload";
   }
-  @PostMapping("/upload")
+  @Override
   public String uploadModel(FileUploadModel modelUploadDTO) throws IOException {
     return "redirect:/show" + fileService.upload(modelUploadDTO);
   }
