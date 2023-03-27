@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Dealership</title>
@@ -16,7 +16,7 @@
 <body>
 <div class="card">
   <img class="card-img" src="/images/home.png" alt="picture">
-  <div class="card-img-overlay" th:action="@{/index}">
+  <div class="card-img-overlay" th:action="@{/index}" sec:authorize="isAnonymous()" >
       <nav th:replace="~{/fragments/navbar}"></nav>
       <div class="container">
         <h1 class="text-center" data-th-text="#{label.welcome}">Welcome to our salon</h1>

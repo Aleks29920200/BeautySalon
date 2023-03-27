@@ -74,7 +74,7 @@ public class ServiceControllerImpl implements ServiceController{
     public String delete(@PathVariable Long id){
         this.transactionService.deleteTransactionsByService_Id(id);
         this.service.deleteById(id);
-        return "redirect:/admin/cosmeticService";
+        return "redirect:/cosmeticService";
     }
     @Override
     public String makeUp(){
@@ -88,12 +88,15 @@ public class ServiceControllerImpl implements ServiceController{
     public String massages(){
         return "/massages";
     }
+
     @Override
     public String manicure(){
         return "/manicure";
     }
     @Override
-    public String hairdressing(){
+    public String hairdressing() throws ObjectNotFoundException {
+        ServiceViewDto serviceById = this.service.findServiceById((long) (this.service.allServices().size() - 1));
+        System.out.println(serviceById);
         return "/hairdressing";
     }
     @Override

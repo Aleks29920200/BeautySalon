@@ -26,7 +26,6 @@ public interface ServiceController {
                           BindingResult bindingResult,
                           RedirectAttributes attr) throws IOException;
     @GetMapping("/cosmeticService")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public String allServices(Model model);
     @GetMapping("/admin/cosmeticService/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -40,10 +39,11 @@ public interface ServiceController {
     public String pedicure();
     @GetMapping("/massages")
     public String massages();
+
     @GetMapping("/manicure")
     public String manicure();
     @GetMapping("/hairdressing")
-    public String hairdressing();
+    public String hairdressing() throws ObjectNotFoundException;
     @GetMapping("/manicure/{id}")
     public ModelAndView info(@PathVariable Long id, ModelAndView model) throws ObjectNotFoundException;
 }

@@ -44,7 +44,11 @@ public class ServiceImpl implements Service{
     }
     @Override
     public ServiceViewDto findServiceById(Long id) throws ObjectNotFoundException {
-        ServiceViewDto serviceById = mapper.map(this.repo.findServiceById(id), ServiceViewDto.class);
+        com.example.beautySalon.domain.entity.Service serviceById1 = this.repo.findServiceById(id);
+        if(serviceById1==null){
+            throw new ObjectNotFoundException(id,"Service");
+        }
+        ServiceViewDto serviceById = mapper.map(serviceById1, ServiceViewDto.class);
         if(serviceById==null){
             throw new ObjectNotFoundException(id,"Service");
         }

@@ -10,8 +10,8 @@
             <h4>Price: <strong th:text="*{price}"></strong></h4>
             <h4>Category: <strong th:text="*{category}"></strong></h4>
             <form method="post"
-                  th:action="@{'/admin/cosmeticService/' + ${id}}">
-                <button class="btn btn-danger align-bottom" type="submit">Delete company</button>
+                  th:action="@{'/admin/cosmeticService/' + ${service.id}}">
+                <button class="btn btn-danger align-bottom" type="submit">Delete service</button>
             </form>
         </div>
     </div>

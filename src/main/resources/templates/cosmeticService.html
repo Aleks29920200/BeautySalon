@@ -5,7 +5,7 @@
 <div th:replace="~{/fragments/navbar}"></div>
 <div class="card" sec:authorize="hasRole('ROLE_ADMIN')">
     <img class="card-img" src="/images/allServices.png" alt="picture">
-    <div class="card-img-overlay" th:action="@{/cosmeticService}">
+    <div class="card-img-overlay" th:action="@{/admin/cosmeticService}">
         <div class="card-img-overlay" >
             <div class="text-center">
                 <h1>
@@ -36,7 +36,7 @@
         </div>
     </div>
 </div>
-<div sec:authorize="hasRole('ROLE_USER')">
+<div>
     <div class="card">
         <img class="card-img" src="/images/img.png">
     <div class=" card-img-overlay">

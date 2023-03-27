@@ -18,7 +18,6 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Controller
-@RequestMapping("/boss/")
 public class EmployeeControllerImpl implements EmployeeController{
     private EmployeeServiceImpl employeeService;
     private ModelMapper mapper;
@@ -28,11 +27,11 @@ public class EmployeeControllerImpl implements EmployeeController{
         this.mapper = mapper;
     }
     @Override
-    public String addService(){
+    public String addEmployee(){
         return "/boss/add-employee";
     }
     @Override
-    public String service(@Valid @ModelAttribute("addEmployeeDto") AddEmployeeDto addEmployeeDto,
+    public String employeePost(@Valid @ModelAttribute("addEmployeeDto") AddEmployeeDto addEmployeeDto,
                           BindingResult bindingResult,
                           RedirectAttributes attr){
         if(bindingResult.hasErrors()){
@@ -45,7 +44,7 @@ public class EmployeeControllerImpl implements EmployeeController{
         return "redirect:/home";
     }
     @Override
-    public String allServices(Model model){
+    public String allEmployees(Model model){
         List<EmployeeViewDto> all =this.employeeService.allEmployees();
         model.addAttribute("employees",all);
         return "/boss/all-employees";

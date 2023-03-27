@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -65,7 +66,11 @@ public class TransactionServiceImpl implements TransactionService {
     }
     @Override
     public TransactionViewDto findTransactionById(Long id) throws ObjectNotFoundException {
-        TransactionViewDto transaction = mapper.map(this.transactionRepo.findById(id).orElse(null), TransactionViewDto.class);
+        Transaction transaction1 = this.transactionRepo.findById(id).orElse(null);
+        if(transaction1==null){
+            throw new ObjectNotFoundException(id,"Transaction");
+        }
+        TransactionViewDto transaction = mapper.map(transaction1, TransactionViewDto.class);
         if(transaction==null){
             throw new ObjectNotFoundException(id,"Transaction");
         }
@@ -90,10 +95,9 @@ public class TransactionServiceImpl implements TransactionService {
         event(transactionDto);
     }
 
-    public void event(TransactionDto transactionEvent) {
+    public void event(TransactionDto transaction1) {
         TransactionCreatedEvent orderCreatedEvent =
-                new TransactionCreatedEvent(this).
-                setAlTransactionIDs(transactionEvent.getAllProductIDs());
+                new TransactionCreatedEvent(transaction1.getAllProductIDs());
         LOGGER.info("Transaction was created");
         appEventPublisher.publishEvent(orderCreatedEvent);
     }
@@ -105,10 +109,9 @@ public class TransactionServiceImpl implements TransactionService {
     }
     @Override
     public List<TransactionViewDto> findTransactionsByService_Id(Long id) {
-        return this.transactionRepo.findTransactionsByService_Id(id).
-                orElse(null).
+        return Objects.requireNonNull(this.transactionRepo.findTransactionsByService_Id(id).
+                        orElse(null)).
                 stream().
-                map(e->mapper.map(e,TransactionViewDto.class)).
-                collect(Collectors.toList());
+                map(e -> mapper.map(e, TransactionViewDto.class)).toList();
     }
 }

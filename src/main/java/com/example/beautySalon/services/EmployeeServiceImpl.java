@@ -45,7 +45,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto findEmployeeById(Long id) throws ObjectNotFoundException {
-        EmployeeDto employeeById = mapper.map(this.employeeRepo.findEmployeeById(id), EmployeeDto.class);
+        Employee employeeById1 = this.employeeRepo.findEmployeeById(id);
+        if(employeeById1==null){
+            throw new ObjectNotFoundException(id,"Employee");
+        }
+        EmployeeDto employeeById = mapper.map(employeeById1, EmployeeDto.class);
         if(employeeById==null){
             throw new ObjectNotFoundException(id,"Employee");
         }

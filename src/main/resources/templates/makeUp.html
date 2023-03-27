@@ -29,7 +29,10 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center">
+            <div class="text-center" sec:authorize="isAnonymous()">
+                <a type="submit" class="btn btn-primary" th:href="@{/index}">Back</a>
+            </div>
+            <div class="text-center" sec:authorize="hasRole('ROLE_USER')">
                 <a type="submit" class="btn btn-primary" th:href="@{/home}">Back</a>
             </div>
         </div>

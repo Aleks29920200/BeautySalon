@@ -3,20 +3,16 @@
 <div th:replace="~{/fragments/head}"></div>
 <body>
 <div th:replace="~{/fragments/navbar}"></div>
-<div class="card" >
-    <img class="card-img" src="/images/nails1.png" alt="picture">
-    <div class="card-img-overlay">
-        <h1 class="text-center">
-            Hairdressing
-        </h1>
-        <div>
+<div class="card" th:each="hairdressing : ${allServices}"
+     th:object="${hairdressing}">
+    <img th:object="${hairdressing.img}" class="card-img" th:src="'data:image/jpeg;base64,' + ${imgUtil.getImgData(hairdressing.img.fileData)}">
+    <div class=" card-img-overlay">
+        <div class="text-box">
             <div class="container">
                 <div class="row">
-                    <h1>Hairdressing</h1>
-                    <div th:each="hairdressing : ${allServices}"
-                         th:object="${hairdressing}"
+                    <div
                          th:if="${hairdressing.category==T(com.example.beautySalon.domain.entity.ServiceCategory).HAIRDRESSING}"
-                         class="col-md-4 d-flex flex-column bg-text mb-3 rounded-pill">
+                         class="rounded-pill">
                         <h2>Name: <strong th:text="*{name}"></strong></h2>
                         <h4>Price: <strong th:text="*{price}"></strong></h4>
                         <form method="post" sec:authorize="hasRole('ROLE_USER')"
@@ -29,12 +25,15 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center">
-                <a type="submit" class="btn btn-primary" th:href="@{/home}">Back</a>
-            </div>
         </div>
-        <footer th:replace="~{fragments/footer}"></footer>
     </div>
+        </div>
+<div class="text-center" sec:authorize="isAnonymous()">
+    <a type="submit" class="btn btn-primary" th:href="@{/index}">Back</a>
 </div>
+<div class="text-center" sec:authorize="hasRole('ROLE_USER')">
+    <a type="submit" class="btn btn-primary" th:href="@{/home}">Back</a>
+</div>
+        <footer th:replace="~{fragments/footer}"></footer>
 </body>
 </html>

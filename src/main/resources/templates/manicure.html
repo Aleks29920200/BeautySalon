@@ -3,7 +3,7 @@
 <div th:replace="~{/fragments/head}"></div>
 <body>
 <div th:replace="~{/fragments/navbar}"></div>
-<div class="card">
+<div class="card" sec:authorize="isAnonymous()">
     <img src="/images/nails.png" alt="picture">
     <div class="card-img-overlay">
         <h1 class="text-center">
@@ -15,19 +15,22 @@
              class="row d-flex flex-column text-white bg-text mb-3 rounded-pill">
             <h4> <strong  th:text="*{name}"></strong></h4>
             <h4> <strong  th:text="*{price}"></strong></h4>
-            <form method="post" sec:authorize="hasRole('ROLE_USER')"
-                  th:action="@{'/user/add-transaction/cosmeticService/' + ${manicure.id}}">
-                <button class="btn btn-dark align-bottom" type="submit">Purchase</button>
-            </form>
+                <form method="post"
+                      th:action="@{'/user/add-transaction/cosmeticService/' + ${manicure.id}}">
+                    <button class="btn btn-dark align-bottom" type="submit">Purchase</button>
+                </form>
             <a type="button" class="btn-dark"  th:href="@{'/manicure/' + ${manicure.id}}">
                 Info
             </a>
         </div>
-        <div class="text-center">
+        <div class="text-center" sec:authorize="isAnonymous()">
+            <a type="submit" class="btn btn-primary" th:href="@{/index}">Back</a>
+        </div>
+        <div class="text-center" sec:authorize="hasRole('ROLE_USER')">
             <a type="submit" class="btn btn-primary" th:href="@{/home}">Back</a>
         </div>
     </div>
-    <footer th:replace="~{fragments/footer}"></footer>
 </div>
+<footer th:replace="~{fragments/footer}"></footer>
 </body>
 </html>
