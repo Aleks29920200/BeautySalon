@@ -25,16 +25,16 @@ public class QRCodeControllerImpl implements QrCodeController{
         public String getQRCode(Model model) {
             byte[] image = new byte[0];
             try {
-                // Generate and Return Qr Code in Byte Array
+
                 image = QRCodeGenerator.getQRCodeImage(qrCodeService.qrCodeContent(), 250, 250);
 
-                // Generate and Save Qr Code Image in static/image folder
+
                 QRCodeGenerator.generateQRCodeImage(qrCodeService.qrCodeContent(), 250, 250, QR_CODE_IMAGE_PATH);
 
             } catch (WriterException | IOException e) {
                 e.printStackTrace();
             }
-            // Convert Byte Array into Base64 Encode String
+
             String qrcode = Base64.getEncoder().encodeToString(image);
 
             model.addAttribute("medium",qrCodeService.qrCodeContent());

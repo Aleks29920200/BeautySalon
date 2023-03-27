@@ -1,5 +1,7 @@
 package com.example.beautySalon.services;
 
+import com.example.beautySalon.domain.dto.binding.TransactionCreatedEvent;
+import com.example.beautySalon.domain.dto.service.TransactionDto;
 import com.example.beautySalon.domain.dto.view.TransactionViewDto;
 import com.example.beautySalon.domain.dto.view.UserViewDto;
 import com.example.beautySalon.domain.dto.binding.AddTransactionDto;
@@ -7,10 +9,14 @@ import com.example.beautySalon.domain.dto.service.BillDto;
 import com.example.beautySalon.domain.dto.service.ServiceDto;
 import com.example.beautySalon.domain.dto.service.UserDto;
 import com.example.beautySalon.domain.dto.error.ObjectNotFoundException;
+import com.example.beautySalon.domain.entity.BaseEntity;
 import com.example.beautySalon.domain.entity.Transaction;
 import com.example.beautySalon.domain.entity.User;
 import com.example.beautySalon.repositories.TransactionRepo;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,21 +25,26 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
+
 @Service
 public class TransactionServiceImpl implements TransactionService {
+
     private TransactionRepo transactionRepo;
     private ModelMapper mapper;
 
     private ServiceImpl service;
     private BillServiceImpl billService;
     private UserServiceImpl userService;
-
-    public TransactionServiceImpl(TransactionRepo transactionRepo, ModelMapper mapper, ServiceImpl service, BillServiceImpl billService, UserServiceImpl userService) {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TransactionService.class);
+    private final ApplicationEventPublisher appEventPublisher;
+    TransactionDto transactionDto=new TransactionDto();
+    public TransactionServiceImpl(TransactionRepo transactionRepo, ModelMapper mapper, ServiceImpl service, BillServiceImpl billService, UserServiceImpl userService, ApplicationEventPublisher appEventPublisher) {
         this.transactionRepo = transactionRepo;
         this.mapper = mapper;
         this.service = service;
         this.billService = billService;
         this.userService = userService;
+        this.appEventPublisher = appEventPublisher;
     }
 
     @Override
@@ -74,7 +85,17 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setService(mapper.map(fillTransactionDto.getServiceName(), com.example.beautySalon.domain.entity.Service.class));
         transaction.setBill(this.billService.findById(fillTransactionDto.getBillDto().getId()));
         transaction.setUser(mapper.map(this.userService.findUserByUsername(fillTransactionDto.getUser().getUsername()),User.class));
-        this.transactionRepo.saveAndFlush(transaction);
+        Transaction transaction1 = this.transactionRepo.saveAndFlush(transaction);
+        transactionDto.addProductId(transaction1.getId());
+        event(transactionDto);
+    }
+
+    public void event(TransactionDto transactionEvent) {
+        TransactionCreatedEvent orderCreatedEvent =
+                new TransactionCreatedEvent(this).
+                setAlTransactionIDs(transactionEvent.getAllProductIDs());
+        LOGGER.info("Transaction was created");
+        appEventPublisher.publishEvent(orderCreatedEvent);
     }
 
     @Override

@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{/fragments/head}"></div>
 <body>
-<div th:action="@{/user/all-transactions/qrcode}">
+<div th:action="@{/user/all-transactions/qrcode}" class="text-center">
     <div>
-      <p>Data : <span th:text="${medium}"></span></p>
-      <img th:src="${'data:image/png;base64,' + qrcode}" alt="" height="250" width="250">
+      <h3>Please scan the QrCode</h3>
+      <img th:src="${'data:image/png;base64,' + qrcode}" alt="" height="500" width="500">
     </div>
   </div>
 <div class="text-center">
