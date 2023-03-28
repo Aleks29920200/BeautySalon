@@ -21,7 +21,7 @@ public interface UserService {
 
     Role findRoleByName(String name);
 
-    List<User> allUsers();
+    List<UserViewDto> allUsers();
 
 
 }

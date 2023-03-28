@@ -10,10 +10,10 @@ import com.example.beautySalon.repositories.UserRepo;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -68,8 +68,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> allUsers() {
-        return this.userRepo.findAll();
+    public List<UserViewDto> allUsers() {
+        return this.userRepo.findAll().stream().
+                map(e->mapper.map(e,UserViewDto.class)).
+                collect(Collectors.toList());
     }
 
 
