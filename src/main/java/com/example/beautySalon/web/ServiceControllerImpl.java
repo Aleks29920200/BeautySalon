@@ -94,9 +94,7 @@ public class ServiceControllerImpl implements ServiceController{
         return "/manicure";
     }
     @Override
-    public String hairdressing() throws ObjectNotFoundException {
-        ServiceViewDto serviceById = this.service.findServiceById((long) (this.service.allServices().size() - 1));
-        System.out.println(serviceById);
+    public String hairdressing(){
         return "/hairdressing";
     }
     @Override

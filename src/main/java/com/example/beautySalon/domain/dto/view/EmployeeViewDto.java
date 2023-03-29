@@ -1,9 +1,10 @@
 package com.example.beautySalon.domain.dto.view;
 
 import com.example.beautySalon.domain.entity.BaseEntity;
+import lombok.AllArgsConstructor;
 
 import java.time.LocalTime;
-
+@AllArgsConstructor
 public class EmployeeViewDto extends BaseEntity {
     private String fullName;
     private int age;

@@ -43,7 +43,7 @@ public interface ServiceController {
     @GetMapping("/manicure")
     public String manicure();
     @GetMapping("/hairdressing")
-    public String hairdressing() throws ObjectNotFoundException;
+    public String hairdressing();
     @GetMapping("/manicure/{id}")
     public ModelAndView info(@PathVariable Long id, ModelAndView model) throws ObjectNotFoundException;
 }

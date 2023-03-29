@@ -24,7 +24,7 @@ public class FileUploadControllerImpl implements FileUploadController {
   }
   @Override
   public String uploadModel(FileUploadModel modelUploadDTO) throws IOException {
-    return "redirect:/show" + fileService.upload(modelUploadDTO);
+    return "redirect:/admin/add-service";
   }
 }
 
