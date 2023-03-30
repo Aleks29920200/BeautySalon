@@ -14,3 +14,4 @@ public class BillViewDto extends BaseEntity {
     private BigDecimal amount;
     private BigDecimal price;
 }
+

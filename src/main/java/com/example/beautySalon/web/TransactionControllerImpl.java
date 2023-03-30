@@ -39,7 +39,7 @@ public class TransactionControllerImpl implements TransactionController{
         transactionService.saveTransaction(fillTransactionDto);
         model.setViewName("/user/add-transaction");
         model.addObject("transaction",fillTransactionDto);
-        return "redirect:/user/all-transactions";
+        return "/user/add-transaction";
     }
     @Override
     public String allTransactions(Model model,Principal principal){

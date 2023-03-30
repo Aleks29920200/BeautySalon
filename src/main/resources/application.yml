@@ -10,24 +10,22 @@ spring:
   mvc:
     hiddenmethod:
       filter:
-        enabled: 'true'
+        enabled: true
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     password: samsungga123@#456
     username: root
     url: jdbc:mysql://localhost:3306/beauty_salon?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
   mail:
-    host: localhost
-    port:  1025
-    username: "admin@gmail.com"
-    password: ""
-    protocol: smtp
+    username: akobachev@gmail.com
+    password: samsungga123#
+    host: smtp.gmail.com
+    port: 587
     default-encoding: UTF-8
-    test-connection: on
+    protocol: smtp
+    test-connection: true
     properties:
-      smtp.connectionTimeout: 5000
-      smtp.timeout: 5000
-      smtp.writeTimeout: 5000
+      smtp.auth: true
 logging:
   level:
     org:

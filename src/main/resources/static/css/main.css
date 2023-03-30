@@ -177,4 +177,10 @@ body{margin-top:20px;}
           padding-right: 0px;
      }
 }
+.comments {
+     grid-column: 1/4;
+     grid-row: 4;
+
+}
+
 

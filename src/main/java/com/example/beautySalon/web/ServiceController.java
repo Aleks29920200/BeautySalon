@@ -1,5 +1,6 @@
 package com.example.beautySalon.web;
 
+import ch.qos.logback.core.model.ModelConstants;
 import com.example.beautySalon.domain.dto.binding.AddServiceDto;
 import com.example.beautySalon.domain.dto.error.ObjectNotFoundException;
 import jakarta.validation.Valid;

@@ -21,8 +21,9 @@
                     data-th-value="#{label.serviceName}"
                     type="text"
             />
-            <p th:errors = "*{name}"  class="text-danger"
-               th:if="${#fields.hasErrors('name')}"></p>
+            <ul th:each="err : ${#fields.errors('name')}">
+                <li th:object="${err}" th:if="${err.toString().contains('empty')}" data-th-text="#{label.wrongSize}"  class="error">Name cannot be empty!</li>
+            </ul>
         </div>
         <div class="form-group mb-3">
             <label  for="price" class="form-label" data-th-text="#{label.servicePrice}">Last Name</label>

@@ -1,13 +1,6 @@
 package com.example.beautySalon.controller;
 
-import com.example.beautySalon.domain.dto.binding.RegisterDto;
-import com.example.beautySalon.domain.dto.service.UserDto;
-import com.example.beautySalon.domain.dto.view.EmployeeViewDto;
-import com.example.beautySalon.domain.dto.view.UserViewDto;
-import com.example.beautySalon.domain.entity.User;
-import com.example.beautySalon.services.EmployeeService;
-import com.example.beautySalon.services.EmployeeServiceImpl;
-import com.example.beautySalon.services.UserServiceImpl;
+
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
@@ -35,10 +28,10 @@ public class AuthControllerIT {
     @Test
    public void testRegistration() throws Exception {
         mockMvc.perform(post("/users/register").
-                        param("email", "pris@example.com").
-                        param("username","pris").
-                        param("firstName", "Presian").
-                        param("lastName", "Iglov").
+                        param("email", "pro@example.com").
+                        param("username","pro").
+                        param("firstName", "Proian").
+                        param("lastName", "Pringov").
                         param("password", "123").
                         param("confirmPassword", "123")
                 ).

@@ -4,42 +4,32 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 
-@Service("emailService")
-public class EmailService
-{
-    private final JavaMailSender mailSender;
 
-    public EmailService(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
-    }
-    public void sendEmail(
-            String email,
-            String title,
-            String message
-    ) {
-        MimeMessage mimeMessage = mailSender.createMimeMessage();
+@Component
+public class EmailService {
+        public final JavaMailSender emailSender;
 
-        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
-
-        try {
-            mimeMessageHelper.setFrom("mobilele@example.com");
-            mimeMessageHelper.setTo(email);
-            //TODO: i18n
-            mimeMessageHelper.setSubject(title);
-            mimeMessageHelper.setText(message, true);
-
-            mailSender.send(mimeMessageHelper.getMimeMessage());
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
+        @Autowired
+        public EmailService(@Qualifier("getJavaMailSender") JavaMailSender emailSender) {
+            this.emailSender = emailSender;
         }
-
-    }
+        public void sendSimpleMessage(String to, String subject, String text) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(to);
+            message.setSubject(subject);
+            message.setText(text);
+            emailSender.send(message);
+        }
 }

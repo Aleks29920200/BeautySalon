@@ -3,33 +3,39 @@
 <div th:replace="~{/fragments/head}"></div>
 <body>
 <div th:replace="~{/fragments/navbar}"></div>
-<div class="card" sec:authorize="isAnonymous()">
-    <img src="/images/nails.png" alt="picture">
-    <div class="card-img-overlay">
-        <h1 class="text-center">
-            Manicure
-        </h1>
-        <div th:each="manicure : ${allServices}"
-             th:object="${manicure}"
-             th:if="${manicure.category==T(com.example.beautySalon.domain.entity.ServiceCategory).MANICURE}"
-             class="row d-flex flex-column text-white bg-text mb-3 rounded-pill">
-            <h4> <strong  th:text="*{name}"></strong></h4>
-            <h4> <strong  th:text="*{price}"></strong></h4>
-                <form method="post"
-                      th:action="@{'/user/add-transaction/cosmeticService/' + ${manicure.id}}">
-                    <button class="btn btn-dark align-bottom" type="submit">Purchase</button>
-                </form>
-            <a type="button" class="btn-dark"  th:href="@{'/manicure/' + ${manicure.id}}">
-                Info
-            </a>
-        </div>
-        <div class="text-center" sec:authorize="isAnonymous()">
-            <a type="submit" class="btn btn-primary" th:href="@{/index}">Back</a>
-        </div>
-        <div class="text-center" sec:authorize="hasRole('ROLE_USER')">
-            <a type="submit" class="btn btn-primary" th:href="@{/home}">Back</a>
-        </div>
+                        <div th:each="manicure : ${allServices}"
+                             th:if="${manicure.category==T(com.example.beautySalon.domain.entity.ServiceCategory).MANICURE}"
+                             class="text-center">
+                            <div class="card" th:object="${manicure}">
+                                <img class="card-img"  th:src="'data:image/jpeg;base64,' + ${imageUtil.getImgData(manicure.getImg().getFileData())}">
+                                <div class="card-img-overlay">
+                                    <div class="container">
+                                        <div class="col-12">
+                                            <div class="text">
+                            <div class="col">
+                                <h1 ><strong class="flex-column" th:text="*{name}"></strong></h1>
+                            </div>
+                            <div class="col">
+                                <h1 class="col-auto"><strong class="flex-column" th:text="*{price}"></strong></h1>
+                            </div>
+                            <form method="post" sec:authorize="hasRole('ROLE_USER')"
+                                  th:action="@{'/user/add-transaction/cosmeticService/' + ${manicure.id}}">
+                                <button class="btn btn-dark align-bottom" type="submit">Purchase</button>
+                            </form>
+                            <a type="button" class="btn-dark btn btn-primary"  th:href="@{'/manicure/' + ${manicure.id}}">
+                                Info
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                    </div>
     </div>
+</div>
+<div class="text-center" sec:authorize="isAnonymous()">
+    <a type="submit" class="btn btn-primary" th:href="@{/index}">Back</a>
+</div>
+<div class="text-center" sec:authorize="hasRole('ROLE_USER')">
+    <a type="submit" class="btn btn-primary" th:href="@{/home}">Back</a>
 </div>
 <footer th:replace="~{fragments/footer}"></footer>
 </body>

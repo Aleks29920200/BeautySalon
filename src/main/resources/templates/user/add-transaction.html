@@ -4,16 +4,8 @@
 <body>
 <div th:replace="~{/fragments/navbar}"></div>
 <div class="row">
-    <div th:object="${transaction}"
-         class="col-md-4 d-flex flex-column bg-text mb-3 rounded-circle">
-        <h4>Price: <strong th:field="*{startDate}"></strong></h4>
-        <h4>Price: <strong th:field="*{expirationDate}"></strong></h4>
-        <h4>Price: <strong th:text="*{billDto.amount}"></strong></h4>
-        <h4>Price: <strong th:text="*{serviceName.price}"></strong></h4>
-    </div>
-    <div class="text-center">
-        <a type="submit" class="btn btn-primary" th:href="@{/home}">Back</a>
-    </div>
+    <div th:object="${transaction}">
+</div>
 </div>
 <footer th:replace="~{fragments/footer}"></footer>
 </body>

@@ -100,9 +100,8 @@ public class ServiceControllerImpl implements ServiceController{
     @Override
     public ModelAndView info(@PathVariable Long id, ModelAndView model) throws ObjectNotFoundException {
         ServiceViewDto serviceById = this.service.findServiceById(id);
-        model.setViewName("/ManicureTypes");
+        model.setViewName("user/ManicureTypes");
         model.addObject("manicureType",serviceById);
-        model.addObject("imgUtil", new ImageUtil());
         return model;
     }
     @ModelAttribute
@@ -112,5 +111,9 @@ public class ServiceControllerImpl implements ServiceController{
     @ModelAttribute(name="allServices")
     public List<Service> allServices() {
         return this.serviceRepo.findAll();
+    }
+    @ModelAttribute
+    public ImageUtil imgUtil() {
+        return new ImageUtil();
     }
 }

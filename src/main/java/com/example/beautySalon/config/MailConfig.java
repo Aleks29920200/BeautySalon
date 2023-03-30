@@ -14,16 +14,21 @@ import java.util.Properties;
 public class MailConfig {
 
     @Bean
-    public JavaMailSender javaMailSender() {
-        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+    public JavaMailSender getJavaMailSender(){
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
 
-        javaMailSender.setHost("localhost");
-        javaMailSender.setPort(1025);
-        javaMailSender.setUsername("admin@example.com");
-        javaMailSender.setPassword("");
-        javaMailSender.setJavaMailProperties(mailProperties());
-        javaMailSender.setDefaultEncoding("UTF-8");
-        return new JavaMailSenderImpl();
+        mailSender.setUsername("mymoviemaster@gmail.com");
+        mailSender.setPassword("mymoviemaster97");
+
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+
+        return mailSender;
     }
     private Properties mailProperties() {
         Properties properties = new Properties();

@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ServiceControllerIT {
-    private static Long SERVICE_ID=37L;
+    private static Long SERVICE_ID=39L;
     @Autowired
     private MockMvc mockMvc;
 
