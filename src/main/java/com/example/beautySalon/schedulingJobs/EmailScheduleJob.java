@@ -23,7 +23,7 @@ public class EmailScheduleJob {
         this.modelMapper = modelMapper;
         this.employeeService=employeeService;
     }
-   @Scheduled(cron = "0 0 ? 25 12 ?")
+   @Scheduled(cron = "0 1 0 25 12 ?")
     public void christmasScheduleJob() {
        List<EmployeeViewDto> employees = this.employeeService.allEmployees();
         employees.forEach(employee -> emailService.sendSimpleMessage(

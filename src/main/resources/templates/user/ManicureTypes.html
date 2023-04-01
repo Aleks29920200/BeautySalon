@@ -24,7 +24,7 @@
 </head>
 <body>
 <header th:replace="~{/fragments/navbar}"></header>
-<input type="hidden" name="serviceId" id="serviceId" th:value="${manicureType.id}">
+
 <div class="card" th:object="${manicureType}" th:action="@{'/manicure/' + ${manicureType.id}}"  >
   <img class="card-img" th:src="'data:image/jpeg;base64,' + ${imageUtil.getImgData(manicureType.img.fileData)}" />
   <div class="card-img-overlay">
@@ -34,49 +34,48 @@
       <p class="text-info align-text-top" th:text="${manicureType.info}"></p>
   </div>
 </div>
-    <section class="comments">
-      <h1>Comments</h1>
-      <div>
-        <!-- Comments submission -->
-        <form id="commentForm" method="POST"
-              action="/">
-          <div class="form-group">
-            <h4>Leave a comment</h4>
-            <label for="message">Message</label>
-
-            <textarea name="message"
-                      id="message"
-                      cols="30"
-                      rows="5"
-                      class="form-control"
-                      style="background-color: white;"></textarea>
-            <small id="messageError" class="invalid-feedback">
-              Message should be at least 10 characters.
-            </small>
-          </div>
-
-          <div class="form-group">
-            <input type="submit"
-                   class="btn"
-                   id="postComment"
-                   value="Post Comment"/>
-          </div>
-        </form>
-        <!-- Comments submission -->
-      </div>
-
-      <!-- All comments section -->
-      <div>
-        <span id="commentCmtr"><!-- Comments section, filled in by script --></span>
-      </div>
-      <!-- EO: All comments section -->
-    </section>
-    <!-- Scripts: track and comments
-    <script th:src="@{/js/track.js}"></script> -->
-    <script th:src="@{/js/comments.js}"></script>
 </div>
   </div>
-<div>
-</div>
+<input type="hidden" name="serviceId" id="serviceId" th:value="${manicureType.id}">
+<section class="comments">
+  <h1>Comments</h1>
+  <div>
+    <!-- Comments submission -->
+    <form id="commentForm" method="POST"
+          action="/">
+      <div class="form-group">
+        <h4>Leave a comment</h4>
+        <label for="message">Message</label>
+
+        <textarea name="message"
+                  id="message"
+                  cols="30"
+                  rows="5"
+                  class="form-control"
+                  style="background-color: white;"></textarea>
+        <small id="messageError" class="invalid-feedback">
+          Message should be at least 10 characters.
+        </small>
+      </div>
+
+      <div class="form-group">
+        <input type="submit"
+               class="btn"
+               id="postComment"
+               value="Post Comment"/>
+      </div>
+    </form>
+    <!-- Comments submission -->
+  </div>
+
+  <!-- All comments section -->
+  <div>
+    <span id="commentCmtr"><!-- Comments section, filled in by script --></span>
+  </div>
+  <!-- EO: All comments section -->
+</section>
+<!-- Scripts: track and comments
+<script th:src="@{/js/track.js}"></script> -->
+<script th:src="@{/js/comments.js}"></script>
 </body>
 </html>
