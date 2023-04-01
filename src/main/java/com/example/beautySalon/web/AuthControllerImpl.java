@@ -56,7 +56,6 @@ public class AuthControllerImpl implements AuthController {
     public String login(){
         return "users/login";
     }
-
     @ModelAttribute
     public RegisterDto registerDto() {
         return new RegisterDto();

@@ -28,10 +28,10 @@ public class AuthControllerIT {
     @Test
    public void testRegistration() throws Exception {
         mockMvc.perform(post("/users/register").
-                        param("email", "pro@example.com").
-                        param("username","pro").
-                        param("firstName", "Proian").
-                        param("lastName", "Pringov").
+                        param("email", "pskdjdks@example.com").
+                        param("username","dkdjdl").
+                        param("firstName", "DKKSKSKS").
+                        param("lastName", "Sokekekewke").
                         param("password", "123").
                         param("confirmPassword", "123")
                 ).

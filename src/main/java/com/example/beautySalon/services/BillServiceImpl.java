@@ -1,10 +1,9 @@
 package com.example.beautySalon.services;
 
-import com.example.beautySalon.domain.dto.binding.CommentCreationDto;
+
 import com.example.beautySalon.domain.dto.error.ObjectNotFoundException;
 import com.example.beautySalon.domain.dto.service.BillDto;
 import com.example.beautySalon.domain.dto.service.ServiceDto;
-import com.example.beautySalon.domain.dto.view.CommentDisplayView;
 import com.example.beautySalon.domain.entity.Bill;
 import com.example.beautySalon.domain.entity.Comment;
 import com.example.beautySalon.domain.entity.User;

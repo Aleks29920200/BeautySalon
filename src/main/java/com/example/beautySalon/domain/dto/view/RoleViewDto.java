@@ -9,5 +9,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class RoleViewDto extends BaseEntity {
-    String authorities;
+    String authority;
 }

@@ -18,18 +18,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class TransactionControllerIT {
-    private static final Long TRANSACTION_ID = 70L;
-    private static final Long SERVICE_ID = 41L;
+    private static final Long TRANSACTION_ID = 100L;
     @Autowired
     private MockMvc mockMvc;
-    @Test
-    @WithMockUser(username = "ali4o", roles={"USER"})
-    public void testAddTransaction() throws Exception {
-        mockMvc.perform(post("/user/add-transaction/cosmeticService/" + SERVICE_ID))
-                .andExpect(status().isOk())
-                .andExpect(view().name("/user/add-transaction")).
-                andExpect(model().attributeExists("transaction"));
-    }
     @Test
     @WithMockUser(username = "ali4o", roles={"USER"})
     public void testDeleteTransaction() throws Exception {

@@ -1,9 +1,9 @@
-const backendLocation = 'http://localhost:8080'
+const backendLocation = 'http://localhost:8000'
 
-let routeId = document.getElementById("routeId").getAttribute("value")
-let commentSection = document.getElementById("commentCtnr")
+let serviceId = document.getElementById("serviceId").getAttribute("value")
+let commentSection = document.getElementById("commentCmtr")
 
-fetch(`${backendLocation}/api/${routeId}/comments`)
+fetch(`${backendLocation}/api/${serviceId}/comments`)
     .then((response) => response.json())
     .then((body) => {
         for(comment of body) {
@@ -28,7 +28,7 @@ function addCommentAsHtml(comment) {
 }
 
 function deleteComment(commentId) {
-    fetch(`${backendLocation}/api/${routeId}/comments/${commentId}`, {
+    fetch(`${backendLocation}/api/${serviceId}/comments/${commentId}`, {
         method: 'DELETE',
         headers: {
             [csrfHeaderName]: csrfHeaderValue
@@ -48,7 +48,7 @@ commentForm.addEventListener("submit", (event) => {
 
     let text = document.getElementById("message").value
 
-    fetch(`${backendLocation}/api/${routeId}/comments`, {
+    fetch(`${backendLocation}/api/${serviceId}/comments`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

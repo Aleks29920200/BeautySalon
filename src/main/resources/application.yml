@@ -17,10 +17,10 @@ spring:
     username: root
     url: jdbc:mysql://localhost:3306/beauty_salon?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
   mail:
-    username: akobachev@gmail.com
-    password: samsungga123#
-    host: smtp.gmail.com
-    port: 587
+    username: boss@example.com
+    password:
+    host: localhost
+    port: 1025
     default-encoding: UTF-8
     protocol: smtp
     test-connection: true

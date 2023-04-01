@@ -1,14 +1,13 @@
 package com.example.beautySalon.web;
 
-import com.example.beautySalon.services.FileService;
-import com.example.beautySalon.services.ServiceImpl;
-import com.example.beautySalon.services.TransactionServiceImpl;
+
+import com.example.beautySalon.domain.dto.view.UserViewDto;
+import com.example.beautySalon.services.*;
 import com.example.beautySalon.domain.dto.binding.AddServiceDto;
 import com.example.beautySalon.domain.dto.error.ObjectNotFoundException;
 import com.example.beautySalon.domain.dto.view.ServiceViewDto;
 import com.example.beautySalon.domain.entity.Service;
 import com.example.beautySalon.repositories.ServiceRepo;
-import com.example.beautySalon.services.UserServiceImpl;
 import com.example.beautySalon.util.ImageUtil;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -30,14 +29,16 @@ public class ServiceControllerImpl implements ServiceController{
     private UserServiceImpl userService;
     private FileService fileService;
     private TransactionServiceImpl transactionService;
+    private CommentService commentService;
 
-    public ServiceControllerImpl(ServiceImpl service, ServiceRepo serviceRepo, ModelMapper mapper, UserServiceImpl userService, FileService fileService, TransactionServiceImpl transactionService) {
+    public ServiceControllerImpl(ServiceImpl service, ServiceRepo serviceRepo, ModelMapper mapper, UserServiceImpl userService, FileService fileService, TransactionServiceImpl transactionService, CommentService commentService) {
         this.service = service;
         this.serviceRepo = serviceRepo;
         this.mapper = mapper;
         this.userService = userService;
         this.fileService = fileService;
         this.transactionService = transactionService;
+        this.commentService = commentService;
     }
     @Override
     public String addService(){

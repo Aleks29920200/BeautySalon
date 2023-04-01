@@ -1,6 +1,7 @@
 package com.example.beautySalon.web;
 
 
+import com.example.beautySalon.domain.dto.error.ObjectNotFoundException;
 import com.example.beautySalon.services.ServiceImpl;
 import com.example.beautySalon.services.UserServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
@@ -48,9 +49,9 @@ public class HomeControllerImpl implements HomeController{
         return "index";
     }
     @Override
-    public String home(Principal principal, ModelAndView modelAndView){
+    public String home(Principal principal, ModelAndView modelAndView) throws ObjectNotFoundException {
         modelAndView.addObject("username",principal.getName());
-        modelAndView.addObject("services",this.service.allServices());
+        modelAndView.addObject("service",this.service.findServiceById(40L));
         return "home";
     }
     @Override

@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class EmployeeControllerIT {
-    private static final Long ROUTE_ID = 9L;
+    private static final Long ROUTE_ID = 10L;
     @Autowired
     private MockMvc mockMvc;
 
@@ -39,14 +39,14 @@ public class EmployeeControllerIT {
     @WithMockUser(username = "alio", roles={"BOSS"})
     public void testAddEmployee() throws Exception {
         mockMvc.perform(post("/boss/add-employee").
-                        param("fullName", "Ivan Glushkov").
-                        param("age","33").
-                        param("address", "ulica Malina 20").
-                        param("startOfWorkingDay", "10:00").
+                        param("fullName", "Dsmdndnddn Jksksddk").
+                        param("age","23").
+                        param("address", "ulica skskdk 20").
+                        param("startOfWorkingDay", "9:00").
                         param("endOfWorkingDay", "22:00").
                         param("salary", "2000").
-                        param("identificationNumber", "skkclsslld").
-                        param("email", "ivan@example.com")
+                        param("identificationNumber", "skkwwekmoewpwedskm").
+                        param("email", "skkdmkmekd@mailhog.com")
                 ).
                 andExpect(status().is3xxRedirection()).
                 andExpect(redirectedUrl("/home"));

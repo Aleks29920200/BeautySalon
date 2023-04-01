@@ -23,10 +23,10 @@ public class EmailScheduleJob {
         this.modelMapper = modelMapper;
         this.employeeService=employeeService;
     }
-    //@Scheduled(cron = "* * * 30 3 ?")
+   @Scheduled(cron = "0 0 ? 25 12 ?")
     public void christmasScheduleJob() {
        List<EmployeeViewDto> employees = this.employeeService.allEmployees();
-        employees.stream().filter(e->e.getEmail().contains("gmail.com")).forEach(employee -> emailService.sendSimpleMessage(
+        employees.forEach(employee -> emailService.sendSimpleMessage(
                 employee.getEmail(), EmailConstants.CHRISTMAS_MESSAGE_TITLE, EmailConstants.CHRISTMAS_MESSAGE_TEXT));
     }
 }
