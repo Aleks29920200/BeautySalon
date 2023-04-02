@@ -21,7 +21,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/home").fullyAuthenticated()
                 .requestMatchers("/logout").authenticated()
                 .requestMatchers("api/**").permitAll()
-                .requestMatchers("/profile").authenticated()
+                .requestMatchers("/profile/**").authenticated()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/boss/**").hasRole("BOSS")
                 .requestMatchers("/user/**").hasRole("USER")

@@ -94,8 +94,7 @@ public class TransactionServiceImpl implements TransactionService {
         transactionDto.addProductId(transaction1.getId());
         event(transactionDto);
     }
-
-    public void event(TransactionDto transaction1) {
+    private void event(TransactionDto transaction1) {
         TransactionCreatedEvent orderCreatedEvent =
                 new TransactionCreatedEvent(transaction1.getAllProductIDs());
         LOGGER.info("Transaction was created");

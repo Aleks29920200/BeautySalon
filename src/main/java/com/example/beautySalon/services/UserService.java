@@ -1,6 +1,7 @@
 package com.example.beautySalon.services;
 
 
+import com.example.beautySalon.domain.dto.binding.EditUser;
 import com.example.beautySalon.domain.dto.view.UserViewDto;
 import com.example.beautySalon.domain.dto.binding.RegisterDto;
 import com.example.beautySalon.domain.entity.Role;
@@ -24,4 +25,6 @@ public interface UserService {
     List<UserViewDto> allUsers();
 
 
+
+    void editUser(EditUser editUser,String username);
 }

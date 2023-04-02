@@ -1,5 +1,6 @@
 package com.example.beautySalon.services;
 
+import com.example.beautySalon.domain.dto.binding.EditUser;
 import com.example.beautySalon.domain.dto.view.UserViewDto;
 import com.example.beautySalon.domain.dto.binding.RegisterDto;
 import com.example.beautySalon.domain.dto.service.UserDto;
@@ -74,5 +75,17 @@ public class UserServiceImpl implements UserService{
                 collect(Collectors.toList());
     }
 
-
+    @Override
+    public void editUser(EditUser editUser,String username) {
+        User user=new User();
+        user.setFirstName(editUser.getFirstName());
+        user.setLastName(editUser.getLastName());
+        user.setEmail(editUser.getEmail());
+        user.setPassword(editUser.getPassword());
+        user.setUsername(username);
+        if(user.getPassword().equals(editUser.getConfirmPassword())){
+            this.userRepo.delete(this.userRepo.findUserByUsername(username).get());
+            this.userRepo.saveAndFlush(user);
+        }
+    }
 }
