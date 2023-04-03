@@ -53,7 +53,7 @@ public class CommentRestController {
     private Function<Comment, CommentView> createCommentViewForUser(Principal principal, User user) {
         return c -> {
             boolean canEdit = principal != null &&
-                    (isAdminOrModerator(user) || user.getId() == c.getAuthor().getId());
+                    (isUser(user) || user.getId() == c.getAuthor().getId());
             return mapToCommentView(c, canEdit);
         };
     }
@@ -89,7 +89,7 @@ public class CommentRestController {
                 .body(commentView);
     }
 
-    @DeleteMapping("/api/{routeId}/comments/{commentId}")
+    @DeleteMapping("/api/{serviceId}/comments/{commentId}")
     public ResponseEntity<CommentView> deleteComment(@PathVariable("commentId") Long commentId,
                                                      @AuthenticationPrincipal UserDetails principal) {
         User user = mapper.map(service.findUserByUsername(principal.getUsername()), User.class);
@@ -103,14 +103,14 @@ public class CommentRestController {
     private ResponseEntity<CommentView> deleteCommentInternal(Long commentId, User user) {
         Comment comment = commentService.getComment(commentId);
 
-        if(isAdminOrModerator(user) || mapper.map(user, com.example.beautySalon.domain.entity.User.class).getId() == comment.getAuthor().getId()) {
+        if(isUser(user) || mapper.map(user, com.example.beautySalon.domain.entity.User.class).getId() == comment.getAuthor().getId()) {
             Comment deleted = commentService.deleteComment(commentId);
             return ResponseEntity.ok(mapToCommentView(deleted));
         }
         return ResponseEntity.status(403).build();
     }
 
-    private boolean isAdminOrModerator(User user) {
-        return user.getAuthorities().stream().anyMatch(r -> r.getAuthority() == USER.toString() || r.getAuthority() == ADMIN.toString());
+    private boolean isUser(User user) {
+        return user.getAuthorities().stream().anyMatch(r -> r.getAuthority() == USER.toString());
     }
 }
