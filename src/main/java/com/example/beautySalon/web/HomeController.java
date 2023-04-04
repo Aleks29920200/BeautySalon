@@ -15,7 +15,7 @@ public interface HomeController{
     public String index(Principal principal);
     @GetMapping("/about")
     @PreAuthorize(value = "isAnonymous()")
-    public String about();
+    public String about(ModelAndView modelAndView);
     @PostMapping("/index?language")
     @PreAuthorize(value = "isAnonymous()")
     public String indexLanguageToEnglish();

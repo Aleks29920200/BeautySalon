@@ -10,6 +10,7 @@ import com.example.beautySalon.domain.dto.service.ServiceDto;
 import com.example.beautySalon.domain.dto.service.UserDto;
 import com.example.beautySalon.domain.dto.error.ObjectNotFoundException;
 import com.example.beautySalon.domain.entity.BaseEntity;
+import com.example.beautySalon.domain.entity.Bill;
 import com.example.beautySalon.domain.entity.Transaction;
 import com.example.beautySalon.domain.entity.User;
 import com.example.beautySalon.repositories.TransactionRepo;
@@ -56,14 +57,30 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public AddTransactionDto fillTransactionDto(String username, ServiceDto map) {
         AddTransactionDto transaction=new AddTransactionDto();
-        transaction.setStartDate(LocalDateTime.now().toString());
-        LocalDateTime dateTime = LocalDateTime.now().plusDays(1);
+        transaction.setStartDate(parsingDateToString());
+        LocalDateTime dateTime = monthsUntilTransactionExpires();
         transaction.setExpirationDate(dateTime.toString());
         transaction.setServiceName(map);
-        transaction.setBillDto(mapper.map(this.billService.addBill(map), BillDto.class));
-        transaction.setUser(mapper.map(this.userService.findUserByUsername(username), UserDto.class));
+        transaction.setBillDto(convertToBillDto(map));
+        transaction.setUser(convertToUserDto(username));
         return transaction;
     }
+    private static String parsingDateToString() {
+        return LocalDateTime.now().toString();
+    }
+
+    private static LocalDateTime monthsUntilTransactionExpires() {
+        return LocalDateTime.now().plusMonths(1);
+    }
+
+    private UserDto convertToUserDto(String username) {
+        return mapper.map(this.userService.findUserByUsername(username), UserDto.class);
+    }
+
+    private BillDto convertToBillDto(ServiceDto map) {
+        return mapper.map(this.billService.addBill(map), BillDto.class);
+    }
+
     @Override
     public TransactionViewDto findTransactionById(Long id) throws ObjectNotFoundException {
         Transaction transaction1 = this.transactionRepo.findById(id).orElse(null);
@@ -85,14 +102,33 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void saveTransaction(AddTransactionDto fillTransactionDto) {
         Transaction transaction=new Transaction();
-        transaction.setStartDate(LocalDateTime.parse(fillTransactionDto.getStartDate()));
-        transaction.setExpirationDate(LocalDateTime.parse(fillTransactionDto.getExpirationDate()));
-        transaction.setService(mapper.map(fillTransactionDto.getServiceName(), com.example.beautySalon.domain.entity.Service.class));
-        transaction.setBill(this.billService.findById(fillTransactionDto.getBillDto().getId()));
-        transaction.setUser(mapper.map(this.userService.findUserByUsername(fillTransactionDto.getUser().getUsername()),User.class));
+        transaction.setStartDate(getStartingDatParsed(fillTransactionDto));
+        transaction.setExpirationDate(getExpirationDateParsed(fillTransactionDto));
+        transaction.setService(convertToServiceEntity(fillTransactionDto));
+        transaction.setBill(getBillById(fillTransactionDto));
+        transaction.setUser(convertToUserEntity(fillTransactionDto));
         Transaction transaction1 = this.transactionRepo.saveAndFlush(transaction);
         transactionDto.addProductId(transaction1.getId());
         event(transactionDto);
+    }
+
+    private static LocalDateTime getStartingDatParsed(AddTransactionDto fillTransactionDto) {
+        return LocalDateTime.parse(fillTransactionDto.getStartDate());
+    }
+
+    private static LocalDateTime getExpirationDateParsed(AddTransactionDto fillTransactionDto) {
+        return LocalDateTime.parse(fillTransactionDto.getExpirationDate());
+    }
+
+    private Bill getBillById(AddTransactionDto fillTransactionDto) {
+        return this.billService.findById(fillTransactionDto.getBillDto().getId());
+    }
+    private User convertToUserEntity(AddTransactionDto fillTransactionDto) {
+        return mapper.map(this.userService.findUserByUsername(fillTransactionDto.getUser().getUsername()), User.class);
+    }
+
+    private com.example.beautySalon.domain.entity.Service convertToServiceEntity(AddTransactionDto fillTransactionDto) {
+        return mapper.map(fillTransactionDto.getServiceName(), com.example.beautySalon.domain.entity.Service.class);
     }
     private void event(TransactionDto transaction1) {
         TransactionCreatedEvent orderCreatedEvent =

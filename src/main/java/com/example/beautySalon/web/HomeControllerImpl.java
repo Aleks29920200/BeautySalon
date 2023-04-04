@@ -2,20 +2,15 @@ package com.example.beautySalon.web;
 
 
 import com.example.beautySalon.domain.dto.error.ObjectNotFoundException;
+import com.example.beautySalon.services.EmployeeServiceImpl;
 import com.example.beautySalon.services.ServiceImpl;
 import com.example.beautySalon.services.UserServiceImpl;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpServletResponseWrapper;
 import org.modelmapper.ModelMapper;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.context.support.HttpRequestHandlerServlet;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.net.http.HttpRequest;
 import java.security.Principal;
 
 
@@ -25,10 +20,12 @@ public class HomeControllerImpl implements HomeController{
 
     private ModelMapper mapper;
     private ServiceImpl service;
-    public HomeControllerImpl(UserServiceImpl userService, ModelMapper mapper, ServiceImpl service) {
+    private EmployeeServiceImpl employeeService;
+    public HomeControllerImpl(UserServiceImpl userService, ModelMapper mapper, ServiceImpl service, EmployeeServiceImpl employeeService) {
         this.userService = userService;
         this.mapper = mapper;
         this.service = service;
+        this.employeeService = employeeService;
     }
 
     @Override
@@ -40,7 +37,9 @@ public class HomeControllerImpl implements HomeController{
     }
 
     @Override
-    public String about() {
+    public String about(ModelAndView modelAndView) {
+        modelAndView.setViewName("users/about");
+        modelAndView.addObject("employees",this.employeeService.allEmployees());
         return "users/about";
     }
 
@@ -50,8 +49,6 @@ public class HomeControllerImpl implements HomeController{
     }
     @Override
     public String home(Principal principal, ModelAndView modelAndView) throws ObjectNotFoundException {
-        modelAndView.addObject("username",principal.getName());
-        modelAndView.addObject("service",this.service.findServiceById(40L));
         return "home";
     }
     @Override

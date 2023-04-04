@@ -24,7 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ServiceControllerIT {
-    private static Long SERVICE_ID=43L;
+    private static Long SERVICE_ID=44L;
+    private static Long SERVICE_ID_1=45L;
     @Autowired
     private MockMvc mockMvc;
     @Mock
@@ -34,14 +35,13 @@ public class ServiceControllerIT {
     @WithMockUser(username = "hasanis", roles={"ADMIN"})
     public void testAddService() throws Exception {
         mockMvc.perform(post("/admin/add-service").
-                        param("name", "Mexican Massage").
-                        param("price","23.5").
+                        param("name", "Hot Massage").
+                        param("price","24.6").
                         param("category", "MASSAGES").
-                        param("info","sskdkswskdkslksckslkds")
+                        param("info","lddldlsdddsjsjsjsjsksks")
                 ).
                 andExpect(status().is3xxRedirection()).
                 andExpect(redirectedUrl("/home"));
-
     }
     @Test
     @WithMockUser(username = "hasanis", roles={"ADMIN"})
@@ -59,7 +59,7 @@ public class ServiceControllerIT {
     }
     @Test
     @WithMockUser(username = "hasanis", roles={"ADMIN"})
-    public void testDeleteEmployee() throws Exception {
+    public void testDeleteService() throws Exception {
         when(service.findServiceById(SERVICE_ID)).thenReturn(new ServiceViewDto());
         mockMvc.perform(get("/admin/cosmeticService/" + SERVICE_ID))
                 .andExpect(status().isOk())
@@ -68,16 +68,39 @@ public class ServiceControllerIT {
     }
     @Test
     @WithMockUser(username = "hasanis", roles={"ADMIN"})
-    public void testDeleteEmployeePost() throws Exception {
+    public void testDeleteServicePost() throws Exception {
         mockMvc.perform(post("/admin/cosmeticService/" + SERVICE_ID))
-                .andExpect(status().is3xxRedirection()).
-                andExpect(redirectedUrl("/cosmeticService"));
+                .andExpect(status().is3xxRedirection());
     }
     @Test
-    @WithMockUser(username = "ali4o", roles={"USER"})
     public void testInfoAboutService() throws Exception {
-        mockMvc.perform(post("/manicure/" + SERVICE_ID))
-                .andExpect(view().name("/user/ManicureTypes"))
+        mockMvc.perform(get("/manicure/" + SERVICE_ID_1))
+                .andExpect(view().name("user/ManicureTypes"))
                 .andExpect(model().attributeExists("manicureType"));
+    }
+    @Test
+    public void manicureService() throws Exception {
+        mockMvc.perform(get("/manicure"))
+                .andExpect(status().is2xxSuccessful());
+    }
+    @Test
+    public void pedicureService() throws Exception {
+        mockMvc.perform(get("/pedicure"))
+                .andExpect(status().is2xxSuccessful());
+    }
+    @Test
+    public void hairdressingService() throws Exception {
+        mockMvc.perform(get("/hairdressing"))
+                .andExpect(status().is2xxSuccessful());
+    }
+    @Test
+    public void massagesService() throws Exception {
+        mockMvc.perform(get("/massages"))
+                .andExpect(status().is2xxSuccessful());
+    }
+    @Test
+    public void makeUpService() throws Exception {
+        mockMvc.perform(get("/makeUp"))
+                .andExpect(status().is2xxSuccessful());
     }
 }

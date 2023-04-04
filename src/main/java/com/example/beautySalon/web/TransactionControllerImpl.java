@@ -36,8 +36,10 @@ public class TransactionControllerImpl implements TransactionController{
     @Override
     public String select(@PathVariable Long id, ModelAndView model, Principal principal) throws ObjectNotFoundException {
         AddTransactionDto fillTransactionDto = transactionService.fillTransactionDto(principal.getName(), mapper.map(this.service.findServiceById(id), ServiceDto.class));
+        model.setViewName("user/add-transaction");
         transactionService.saveTransaction(fillTransactionDto);
-        return "/user/all-transactions";
+        model.addObject("transaction",fillTransactionDto);
+        return "redirect:/user/all-transactions";
     }
     @Override
     public String allTransactions(Model model,Principal principal){

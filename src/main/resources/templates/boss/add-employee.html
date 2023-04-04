@@ -7,7 +7,7 @@
     <img class="card-img" src="/images/employee.png">
     <div class="card-img-overlay ">
         <form
-                th:action="@{/add-employee}"
+                th:action="@{/boss/add-employee}"
                 th:object="${addEmployeeDto}"
                 method="post" class="mx-auto w-25 bg-blur rounded">
             <div class="form-group mb-3">
@@ -113,7 +113,7 @@
                         placeholder="Email"
                         th:field="*{email}"
                         data-th-placeholder="#{label.employeeEmail}"
-                        type="text"
+                        type="email"
                 />
                 <p th:errors = "*{email}" class="text-danger"
                    th:if="${#fields.hasErrors('email')}"></p>
@@ -121,16 +121,16 @@
             <div class="row ">
                 <div class="col col-md-4 text-center">
                     <div class="button-holder d-flex">
-                        <input type="submit" class="btn btn-info btn-lg" data-th-text="#{label.addEmployee}" value="Add Employee"/>
+                        <input type="submit" class="btn btn-info btn-lg" value="Add Employee"/>
                     </div>
                 </div>
             </div>
         </form>
-        <div class="text-center">
-            <a type="submit" class="btn btn-primary" th:href="@{/home}">Back</a>
-        </div>
     </div>
 </div>
 <footer th:replace="~{/fragments/footer}"></footer>
+<div class="text-center">
+    <a type="submit" class="btn btn-primary" th:href="@{/home}">Back</a>
+</div>
 </body>
 </html>

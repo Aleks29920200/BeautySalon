@@ -10,11 +10,11 @@ public class AddServiceDto {
     @UniqueServiceName
     private String name;
     @Positive(message = "Price must be positive number")
+    @NotNull(message = "Price cannot be null!")
     private Float price;
     private String category;
-    @NotBlank
+    @NotBlank(message = "Info must not be null!")
     private String info;
-
     private FileDto img;
     public AddServiceDto() {
     }

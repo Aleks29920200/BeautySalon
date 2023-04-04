@@ -48,7 +48,6 @@ public class ServiceControllerImpl implements ServiceController{
     public String service(@Valid @ModelAttribute("addServiceDto") AddServiceDto addServiceDto,
                           BindingResult bindingResult,
                           RedirectAttributes attr) throws IOException {
-
         if(bindingResult.hasErrors()){
             attr
                     .addFlashAttribute("addServiceDto", addServiceDto)

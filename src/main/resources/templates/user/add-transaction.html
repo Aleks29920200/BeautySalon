@@ -3,7 +3,15 @@
     <div th:replace="~{/fragments/head}"></div>
 <body>
 <div th:replace="~{/fragments/navbar}"></div>
-<div class="row">
+<div class="row" th:object="${addTransaction}">
+    <div th:action="@{'/user/cosmeticService/add-transaction/'+ *{serviceName.id}}" th:method="post"
+         class="col-md-4 d-flex flex-column bg-text mb-3 rounded-circle">
+        <h2>Name <strong th:text="*{startDate}"></strong></h2>
+        <h4>Price: <strong th:text="*{expirationDate}"></strong></h4>
+        <h4>Category: <strong th:text="*{serviceName.name}"></strong></h4>
+        <h4>Category: <strong th:text="*{serviceName.price}"></strong></h4>
+        <h4>Category: <strong th:text="*{billDto.amount}"></strong></h4>
+    </div>
 </div>
 <footer th:replace="~{fragments/footer}"></footer>
 </body>

@@ -44,7 +44,15 @@ public class BillServiceImpl implements BillService {
     public Bill addBill(ServiceDto serviceDto) {
         BillDto billDto=new BillDto();
         billDto.setPrice(serviceDto.getPrice());
-        billDto.setAmount((float) this.service.allServices().stream().filter(e -> e.getId().equals(serviceDto.getId())).count());
-        return billRepo.saveAndFlush(mapper.map(billDto, Bill.class));
+        billDto.setAmount(getAmountOfPurchasedService(serviceDto));
+        return billRepo.saveAndFlush(mapToBillEntity(billDto));
+    }
+
+    private Bill mapToBillEntity(BillDto billDto) {
+        return mapper.map(billDto, Bill.class);
+    }
+
+    private float getAmountOfPurchasedService(ServiceDto serviceDto) {
+        return (float) this.service.allServices().stream().filter(e -> e.getId().equals(serviceDto.getId())).count();
     }
 }

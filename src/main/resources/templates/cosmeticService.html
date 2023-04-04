@@ -36,7 +36,7 @@
         </div>
     </div>
 </div>
-<div>
+<div sec:authorize="hasRole('ROLE_USER')">
     <div class="card">
         <img class="card-img" src="/images/img.png">
     <div class=" card-img-overlay">

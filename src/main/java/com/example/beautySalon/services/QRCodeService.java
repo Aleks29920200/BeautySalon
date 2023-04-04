@@ -14,13 +14,16 @@ public class QRCodeService {
     }
     public String qrCodeContent(){
         if(CONTENT.equals("")){
-            IntStream.range(0, 10).mapToLong(i -> RANDOM.nextLong(30)).mapToObj(String::valueOf).forEach(number -> CONTENT = CONTENT.concat(number));
-            IntStream.range(0, 15).forEach(i -> {
-                char c = (char) (RANDOM.nextInt(26) + 'a');
-                String letter = String.valueOf(c);
-                CONTENT = CONTENT.concat(letter);
-            });
+            generatingQrCode();
         }
         return CONTENT;
+    }
+    private void generatingQrCode() {
+        IntStream.range(0, 10).mapToLong(i -> RANDOM.nextLong(30)).mapToObj(String::valueOf).forEach(number -> CONTENT = CONTENT.concat(number));
+        IntStream.range(0, 15).forEach(i -> {
+            char c = (char) (RANDOM.nextInt(26) + 'a');
+            String letter = String.valueOf(c);
+            CONTENT = CONTENT.concat(letter);
+        });
     }
 }

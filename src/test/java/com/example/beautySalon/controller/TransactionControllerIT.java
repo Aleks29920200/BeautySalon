@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class TransactionControllerIT {
-    private static final Long TRANSACTION_ID = 100L;
+    private static final Long TRANSACTION_ID = 1L;
     @Autowired
     private MockMvc mockMvc;
     @Test

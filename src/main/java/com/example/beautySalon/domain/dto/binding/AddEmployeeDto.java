@@ -10,23 +10,27 @@ import java.time.LocalTime;
 
 public class AddEmployeeDto {
     @Size(min=10,message = "FullName length must be at least 10 symbols!")
-    @NotBlank
+    @NotBlank(message = "Full name must not be null!")
     private String fullName;
     @Positive(message = "Age must be positive number!")
+    @NotNull
     private int age;
     @Size(min=5,max=30,message = "Address length must be between 5 and 30 characters!")
-    @NotBlank
+    @NotBlank(message = "Address must not be null!")
     private String address;
     @DateTimeFormat(pattern = "HH:mm:ss")
     @PastOrPresent
+    @NotNull(message = "Start of working day must not be null!")
     private LocalTime startOfWorkingDay;
     @DateTimeFormat(pattern = "HH:mm:ss")
     @FutureOrPresent
+    @NotNull(message = "End of working day must not be null!")
     private LocalTime endOfWorkingDay;
     @Positive(message = "Salary must be positive number!")
+    @NotNull(message = "Salary must not be null!")
     private Double salary;
-    @NotBlank
-    @Size(min = 8)
+    @NotBlank(message = "Identification number must not be null!")
+    @Size(min = 8,message = "Identification number must be at least 8 characters")
     @UniqueIdentificationNumber
     private String identificationNumber;
     @Email

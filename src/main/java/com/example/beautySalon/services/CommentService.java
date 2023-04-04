@@ -32,14 +32,15 @@ public class CommentService {
     public Comment createComment(CommentDto commentDto, Long routeId, User author) throws ObjectNotFoundException {
         Comment comment = new Comment();
         comment.setCreated(LocalDateTime.now());
-        comment.setService(mapper.map(service.findServiceById(routeId), com.example.beautySalon.domain.entity.Service.class));
+        comment.setService(mapToServiceEntity(routeId));
         comment.setAuthor(author);
         comment.setText(commentDto.getText());
         comment.setApproved(true);
-
         commentRepository.save(comment);
-
         return comment;
+    }
+    private com.example.beautySalon.domain.entity.Service mapToServiceEntity(Long routeId) throws ObjectNotFoundException {
+        return mapper.map(service.findServiceById(routeId), com.example.beautySalon.domain.entity.Service.class);
     }
 
     public Comment getComment(Long id) {

@@ -2,6 +2,7 @@ package com.example.beautySalon.services;
 
 import com.example.beautySalon.domain.dto.binding.AddServiceDto;
 import com.example.beautySalon.domain.dto.view.ServiceViewDto;
+import com.example.beautySalon.domain.entity.FileEntity;
 import com.example.beautySalon.domain.entity.ServiceCategory;
 import com.example.beautySalon.domain.dto.error.ObjectNotFoundException;
 import com.example.beautySalon.domain.dto.service.FileDto;
@@ -34,26 +35,57 @@ public class ServiceImpl implements Service{
     @Override
     public void saveService(AddServiceDto serviceDto) throws IOException {
         com.example.beautySalon.domain.entity.Service service=new com.example.beautySalon.domain.entity.Service();
-        service.setName(serviceDto.getName());
-        service.setPrice(serviceDto.getPrice());
-        service.setCategory(ServiceCategory.valueOf(serviceDto.getCategory()));
-        service.setInfo(serviceDto.getInfo());
-        serviceDto.setImg(mapper.map(this.fileService.getCurrentAddedImage(),FileDto.class));
-        service.setImg(this.fileService.getCurrentAddedImage());
+        service.setName(getNameOfTheService(serviceDto));
+        service.setPrice(getPriceOfTheService(serviceDto));
+        service.setCategory(parsingCategoryToString(serviceDto));
+        service.setInfo(infoAboutGivenService(serviceDto));
+        serviceDto.setImg(mappingToFileDto());
+        service.setImg(getCurrentAddedImage());
         this.repo.saveAndFlush(service);
     }
+    private FileEntity getCurrentAddedImage() {
+        return this.fileService.getCurrentAddedImage();
+    }
+
+    private static String getNameOfTheService(AddServiceDto serviceDto) {
+        return serviceDto.getName();
+    }
+
+    private static Float getPriceOfTheService(AddServiceDto serviceDto) {
+        return serviceDto.getPrice();
+    }
+
+    private FileDto mappingToFileDto() {
+        return mapper.map(this.fileService.getCurrentAddedImage(), FileDto.class);
+    }
+
+    private static String infoAboutGivenService(AddServiceDto serviceDto) {
+        return serviceDto.getInfo();
+    }
+
+    private static ServiceCategory parsingCategoryToString(AddServiceDto serviceDto) {
+        return ServiceCategory.valueOf(serviceDto.getCategory());
+    }
+
     @Override
     public ServiceViewDto findServiceById(Long id) throws ObjectNotFoundException {
-        com.example.beautySalon.domain.entity.Service serviceById1 = this.repo.findServiceById(id);
-        if(serviceById1==null){
+        if(getServiceById(id)==null){
             throw new ObjectNotFoundException(id,"Service");
         }
-        ServiceViewDto serviceById = mapper.map(serviceById1, ServiceViewDto.class);
-        if(serviceById==null){
+        if(mappingToServiceViewDto(getServiceById(id))==null){
             throw new ObjectNotFoundException(id,"Service");
         }
-        return serviceById;
+        return mappingToServiceViewDto(getServiceById(id));
     }
+
+    private com.example.beautySalon.domain.entity.Service getServiceById(Long id) {
+        return this.repo.findServiceById(id);
+    }
+
+    private ServiceViewDto mappingToServiceViewDto(com.example.beautySalon.domain.entity.Service serviceById1) {
+        return mapper.map(serviceById1, ServiceViewDto.class);
+    }
+
     @Override
     public void deleteById(Long id) {
         this.repo.deleteById(id);

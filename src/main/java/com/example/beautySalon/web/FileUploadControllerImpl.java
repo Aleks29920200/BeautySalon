@@ -5,8 +5,6 @@ import java.io.IOException;
 import com.example.beautySalon.domain.dto.binding.FileUploadModel;
 import com.example.beautySalon.services.FileService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
@@ -24,6 +22,7 @@ public class FileUploadControllerImpl implements FileUploadController {
   }
   @Override
   public String uploadModel(FileUploadModel modelUploadDTO) throws IOException {
+    this.fileService.upload(modelUploadDTO);
     return "redirect:/admin/add-service";
   }
 }

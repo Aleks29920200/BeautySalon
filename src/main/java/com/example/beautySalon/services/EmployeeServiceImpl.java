@@ -33,9 +33,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setIdentificationNumber(addEmployeeDto.getIdentificationNumber());
         employee.setSalary(addEmployeeDto.getSalary());
         employee.setEmail(addEmployeeDto.getEmail());
-    employeeRepo.saveAndFlush(employee);
+    this.employeeRepo.saveAndFlush(employee);
     }
-
     @Override
     public List<EmployeeViewDto> allEmployees() {
         return this.employeeRepo.findAll().stream().
@@ -45,15 +44,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto findEmployeeById(Long id) throws ObjectNotFoundException {
-        Employee employeeById1 = this.employeeRepo.findEmployeeById(id);
-        if(employeeById1==null){
+        if(getEmployeeById(id)==null){
             throw new ObjectNotFoundException(id,"Employee");
         }
-        EmployeeDto employeeById = mapper.map(employeeById1, EmployeeDto.class);
-        if(employeeById==null){
+        if(mapToEmployeeDto(getEmployeeById(id))==null){
             throw new ObjectNotFoundException(id,"Employee");
         }
-        return employeeById;
+        return mapToEmployeeDto(getEmployeeById(id));
+    }
+    private Employee getEmployeeById(Long id) {
+        return this.employeeRepo.findEmployeeById(id);
+    }
+
+    private EmployeeDto mapToEmployeeDto(Employee employeeById1) {
+        return mapper.map(employeeById1, EmployeeDto.class);
     }
 
     @Override

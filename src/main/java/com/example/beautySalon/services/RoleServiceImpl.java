@@ -16,7 +16,7 @@ public class RoleServiceImpl implements RoleService {
 
 
     @Override
-    public void seedAllRoles() {
+    public void addAllRoles() {
         if(roleRepo.count()==0) {
             Role admin = new Role();
             admin.setAuthority(RoleName.ADMIN.name());
