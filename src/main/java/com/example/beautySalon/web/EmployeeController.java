@@ -28,7 +28,7 @@ public interface EmployeeController {
     @GetMapping("/all-employees/{id}")
     @PreAuthorize("hasRole('ROLE_BOSS')")
     public ModelAndView delete(@PathVariable Long id, ModelAndView model) throws ObjectNotFoundException;
-    @PostMapping("all-employees/{id}")
+    @PostMapping("/all-employees/{id}")
     @PreAuthorize("hasRole('ROLE_BOSS')")
     public String delete(@PathVariable Long id);
 }

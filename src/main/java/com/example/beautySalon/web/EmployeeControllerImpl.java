@@ -73,6 +73,7 @@ public class EmployeeControllerImpl implements EmployeeController{
     public LocalTime timeEnd() {
         return addEmployeeDto().getEndOfWorkingDay();
     }
+
     @ModelAttribute
     public AddEmployeeDto addEmployeeDto() {
         return new AddEmployeeDto();

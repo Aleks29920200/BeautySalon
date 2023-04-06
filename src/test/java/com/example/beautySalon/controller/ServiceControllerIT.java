@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -24,21 +25,26 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ServiceControllerIT {
-    private static Long SERVICE_ID=44L;
-    private static Long SERVICE_ID_1=45L;
+    private static Long SERVICE_ID=5L;
+    private static Long SERVICE_ID_1=6L;
     @Autowired
     private MockMvc mockMvc;
-    @Mock
-    private ServiceImpl service;
 
+    @Test
+    @WithMockUser(username = "hasanis", roles={"ADMIN"})
+    public void testAddServiceGet() throws Exception {
+        mockMvc.perform(get("/admin/add-service")).
+                andExpect(status().is2xxSuccessful());
+    }
     @Test
     @WithMockUser(username = "hasanis", roles={"ADMIN"})
     public void testAddService() throws Exception {
         mockMvc.perform(post("/admin/add-service").
-                        param("name", "Hot Massage").
+                        param("name", "Mexican Manicure").
                         param("price","24.6").
-                        param("category", "MASSAGES").
+                        param("category", "MANICURE").
                         param("info","lddldlsdddsjsjsjsjsksks")
+                        .with(csrf())
                 ).
                 andExpect(status().is3xxRedirection()).
                 andExpect(redirectedUrl("/home"));
@@ -60,7 +66,6 @@ public class ServiceControllerIT {
     @Test
     @WithMockUser(username = "hasanis", roles={"ADMIN"})
     public void testDeleteService() throws Exception {
-        when(service.findServiceById(SERVICE_ID)).thenReturn(new ServiceViewDto());
         mockMvc.perform(get("/admin/cosmeticService/" + SERVICE_ID))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/admin/delete-service")).
@@ -69,12 +74,12 @@ public class ServiceControllerIT {
     @Test
     @WithMockUser(username = "hasanis", roles={"ADMIN"})
     public void testDeleteServicePost() throws Exception {
-        mockMvc.perform(post("/admin/cosmeticService/" + SERVICE_ID))
+        mockMvc.perform(post("/admin/cosmeticService/" + SERVICE_ID).with(csrf()))
                 .andExpect(status().is3xxRedirection());
     }
     @Test
     public void testInfoAboutService() throws Exception {
-        mockMvc.perform(get("/manicure/" + SERVICE_ID_1))
+        mockMvc.perform(get("/manicure/" + SERVICE_ID_1).with(csrf()))
                 .andExpect(view().name("user/ManicureTypes"))
                 .andExpect(model().attributeExists("manicureType"));
     }

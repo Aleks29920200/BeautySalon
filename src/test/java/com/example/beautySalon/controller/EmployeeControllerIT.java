@@ -4,6 +4,7 @@ import com.example.beautySalon.domain.dto.view.EmployeeViewDto;
 import com.example.beautySalon.repositories.UserRepo;
 import com.example.beautySalon.services.EmployeeService;
 import com.example.beautySalon.services.EmployeeServiceImpl;
+import net.bytebuddy.asm.Advice;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +21,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,34 +33,35 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class EmployeeControllerIT {
-    private static final Long EMPLOYEE_ID = 11L;
+    private static final Long EMPLOYEE_ID = 6L;
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    @WithMockUser(username = "alio", roles={"BOSS"})
+    @WithMockUser(username = "alio",password = "123",roles={"BOSS"})
     public void testAddEmployee() throws Exception {
         mockMvc.perform(get("/boss/add-employee")).
                 andExpect(status().is2xxSuccessful());
     }
     @Test
-    @WithMockUser(username = "alio", roles={"BOSS"})
+    @WithMockUser(username = "alio",password = "123",roles={"BOSS"})
     public void testAddEmployeeFail() throws Exception {
         mockMvc.perform(post("/boss/add-employee").
                         param("fullName", "I").
                         param("age","-1").
                         param("address", "").
-                        param("startOfWorkingDay", "10:00").
-                        param("endOfWorkingDay", "22:00").
+                        param("startOfWorkingDay", "").
+                        param("endOfWorkingDay", "").
                         param("salary", "-1").
                         param("identificationNumber", "j").
                         param("email", "ivanIvanov@examp.com")
+                        .with(csrf())
                 ).
                 andExpect(status().is3xxRedirection()).
                 andExpect(redirectedUrl("/boss/add-employee"));
     }
     @Test
-    @WithMockUser(username = "alio", roles={"BOSS"})
+    @WithMockUser(username = "alio",password = "123" ,roles={"BOSS"})
     public void testDeleteEmployee() throws Exception {
         mockMvc.perform(get("/boss/all-employees/" + EMPLOYEE_ID))
                 .andExpect(status().isOk())
@@ -66,9 +69,9 @@ public class EmployeeControllerIT {
                 andExpect(model().attributeExists("employee"));
     }
     @Test
-    @WithMockUser(username = "alio", roles={"BOSS"})
+    @WithMockUser(username = "alio",password = "123",roles={"BOSS"})
     public void testDeleteEmployeePost() throws Exception {
-        mockMvc.perform(post("/boss/all-employees/" + EMPLOYEE_ID))
+        mockMvc.perform(post("/boss/all-employees/" + EMPLOYEE_ID).with(csrf()))
                 .andExpect(status().is3xxRedirection());
     }
 }

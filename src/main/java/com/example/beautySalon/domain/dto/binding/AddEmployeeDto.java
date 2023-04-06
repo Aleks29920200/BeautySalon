@@ -18,12 +18,8 @@ public class AddEmployeeDto {
     @Size(min=5,max=30,message = "Address length must be between 5 and 30 characters!")
     @NotBlank(message = "Address must not be null!")
     private String address;
-    @DateTimeFormat(pattern = "HH:mm:ss")
-    @PastOrPresent
     @NotNull(message = "Start of working day must not be null!")
     private LocalTime startOfWorkingDay;
-    @DateTimeFormat(pattern = "HH:mm:ss")
-    @FutureOrPresent
     @NotNull(message = "End of working day must not be null!")
     private LocalTime endOfWorkingDay;
     @Positive(message = "Salary must be positive number!")
@@ -81,6 +77,16 @@ public class AddEmployeeDto {
         this.identificationNumber = identificationNumber;
     }
 
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public LocalTime getStartOfWorkingDay() {
         return startOfWorkingDay;
     }
@@ -95,13 +101,5 @@ public class AddEmployeeDto {
 
     public void setEndOfWorkingDay(LocalTime endOfWorkingDay) {
         this.endOfWorkingDay = endOfWorkingDay;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

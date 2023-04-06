@@ -9,6 +9,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -18,11 +19,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class TransactionControllerIT {
-    private static final Long TRANSACTION_ID = 1L;
+    private static final Long TRANSACTION_ID = 4L;
     @Autowired
     private MockMvc mockMvc;
     @Test
-    @WithMockUser(username = "ali4o", roles={"USER"})
+    @WithMockUser(username = "ivan777", roles={"USER"})
     public void testDeleteTransaction() throws Exception {
         mockMvc.perform(get("/user/all-transactions/" + TRANSACTION_ID))
                 .andExpect(status().isOk())
@@ -31,9 +32,9 @@ public class TransactionControllerIT {
 
     }
     @Test
-    @WithMockUser(username = "ali4o", roles={"USER"})
+    @WithMockUser(username = "ivan777", roles={"USER"})
     public void testDeleteTransactionPost() throws Exception {
-        mockMvc.perform(post("/user/all-transactions/" + TRANSACTION_ID))
+        mockMvc.perform(post("/user/all-transactions/" + TRANSACTION_ID).with(csrf()))
                 .andExpect(status().is3xxRedirection()).
                 andExpect(redirectedUrl("/user/all-transactions"));
     }
