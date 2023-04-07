@@ -36,16 +36,17 @@ public class CommentRestController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/api/{serviceId}/comments")
-    public ResponseEntity<List<CommentView>> getCommentsRoutes(@PathVariable("serviceId") Long serviceId, Principal principal) throws ObjectNotFoundException {
+    @GetMapping("/api/comments")
+    public ResponseEntity<List<CommentView>> getCommentsRoutes(Principal principal) throws ObjectNotFoundException {
         User user = null;
         try {
             user = mapper.map(service.findUserByUsername(principal.getName()),User.class);
         } catch (RuntimeException e) {
             //IGNORE
         }
-        var comments = commentService.getCommentsByRoute(serviceId)
-                .stream().map(createCommentViewForUser(principal,user))
+        var comments = this.commentService.getCommentsByUser(this.service.findUserByUsername(principal.getName()).getId()).
+                stream().
+                map(createCommentViewForUser(principal,user))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(comments);
     }
@@ -67,8 +68,8 @@ public class CommentRestController {
                 c.getCreated().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm")), canEdit);
     }
 
-    @GetMapping("/api/{serviceId}/comments/{commentId}")
-    private ResponseEntity<CommentView> getComment(@PathVariable("commentId") Long commentId, @PathVariable Long serviceId) {
+    @GetMapping("/api/comments/{commentId}")
+    private ResponseEntity<CommentView> getComment(@PathVariable("commentId") Long commentId) {
         try {
             return ResponseEntity.ok(mapToCommentView(commentService.getComment(commentId)));
         } catch (RuntimeException e) {
@@ -76,20 +77,18 @@ public class CommentRestController {
         }
     }
 
-    @PostMapping(value = "/api/{serviceId}/comments", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/api/comments", consumes = "application/json", produces = "application/json")
     public ResponseEntity<CommentView> createComment(@AuthenticationPrincipal UserDetails userDetails,
-                                                     @RequestBody CommentDto commentDto,
-                                                     @PathVariable("serviceId") Long serviceId) throws ObjectNotFoundException {
-        Comment comment = commentService.createComment(commentDto,
-                serviceId, mapper.map(service.findUserByUsername(userDetails.getUsername()), User.class));
+                                                     @RequestBody CommentDto commentDto) throws ObjectNotFoundException {
+        Comment comment = commentService.createComment(commentDto, this.service.findUserByUsername(userDetails.getUsername()).getId());
 
         CommentView commentView = mapToCommentView(comment);
 
-        return ResponseEntity.created(URI.create(String.format("/api/%s/comments/%d", serviceId, comment.getId())))
+        return ResponseEntity.created(URI.create(String.format("/api/comments/%d",comment.getId())))
                 .body(commentView);
     }
 
-    @DeleteMapping("/api/{serviceId}/comments/{commentId}")
+    @DeleteMapping("/api/comments/{commentId}")
     public ResponseEntity<CommentView> deleteComment(@PathVariable("commentId") Long commentId,
                                                      @AuthenticationPrincipal UserDetails principal) {
         User user = mapper.map(service.findUserByUsername(principal.getUsername()), User.class);

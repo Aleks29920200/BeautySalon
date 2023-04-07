@@ -24,7 +24,6 @@ public class User extends BaseEntity {
     private String password;
     @ManyToMany
     private List<Service> service;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> authorities;
 

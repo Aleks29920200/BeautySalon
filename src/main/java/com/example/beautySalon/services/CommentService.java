@@ -3,7 +3,6 @@ package com.example.beautySalon.services;
 import com.example.beautySalon.domain.dto.binding.CommentDto;
 import com.example.beautySalon.domain.dto.error.ObjectNotFoundException;
 import com.example.beautySalon.domain.entity.Comment;
-import com.example.beautySalon.domain.entity.User;
 import com.example.beautySalon.repositories.CommentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,31 +15,29 @@ import java.util.List;
 public class CommentService {
     private CommentRepository commentRepository;
     private ServiceImpl service;
+    private UserServiceImpl userService;
     private ModelMapper mapper;
 
     @Autowired
-    public CommentService(CommentRepository commentRepository, ServiceImpl service, ModelMapper mapper) {
+    public CommentService(CommentRepository commentRepository, ServiceImpl service, UserServiceImpl userService, ModelMapper mapper) {
         this.commentRepository = commentRepository;
         this.service = service;
+        this.userService = userService;
         this.mapper = mapper;
     }
 
-    public List<Comment> getCommentsByRoute(Long serviceId) throws ObjectNotFoundException {
-        return commentRepository.findAllByService(mapper.map(this.service.findServiceById(serviceId), com.example.beautySalon.domain.entity.Service.class)).get();
+    public List<Comment> getCommentsByUser(Long userId) throws ObjectNotFoundException {
+        return commentRepository.findAllByAuthor(this.userService.findUserById(userId)).get();
     }
 
-    public Comment createComment(CommentDto commentDto, Long routeId, User author) throws ObjectNotFoundException {
+    public Comment createComment(CommentDto commentDto, Long user) throws ObjectNotFoundException {
         Comment comment = new Comment();
         comment.setCreated(LocalDateTime.now());
-        comment.setService(mapToServiceEntity(routeId));
-        comment.setAuthor(author);
+        comment.setAuthor(this.userService.findUserById(user));
         comment.setText(commentDto.getText());
         comment.setApproved(true);
         commentRepository.save(comment);
         return comment;
-    }
-    private com.example.beautySalon.domain.entity.Service mapToServiceEntity(Long routeId) throws ObjectNotFoundException {
-        return mapper.map(service.findServiceById(routeId), com.example.beautySalon.domain.entity.Service.class);
     }
 
     public Comment getComment(Long id) {
@@ -52,5 +49,7 @@ public class CommentService {
         commentRepository.delete(comment);
         return comment;
     }
+
+
 }
 

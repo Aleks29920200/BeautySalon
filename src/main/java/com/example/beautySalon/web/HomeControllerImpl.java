@@ -2,6 +2,10 @@ package com.example.beautySalon.web;
 
 
 import com.example.beautySalon.domain.dto.error.ObjectNotFoundException;
+import com.example.beautySalon.domain.dto.service.ServiceDto;
+import com.example.beautySalon.domain.dto.view.ServiceViewDto;
+import com.example.beautySalon.domain.dto.view.UserViewDto;
+import com.example.beautySalon.domain.entity.Service;
 import com.example.beautySalon.services.EmployeeServiceImpl;
 import com.example.beautySalon.services.ServiceImpl;
 import com.example.beautySalon.services.UserServiceImpl;
@@ -9,9 +13,11 @@ import org.modelmapper.ModelMapper;
 
 import org.springframework.stereotype.Controller;
 
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.List;
 
 
 @Controller
@@ -48,11 +54,14 @@ public class HomeControllerImpl implements HomeController{
         return "index";
     }
     @Override
-    public String home(Principal principal, ModelAndView modelAndView) throws ObjectNotFoundException {
+    public String home(){
         return "home";
     }
+
+
     @Override
     public String getLogout(){
         return "redirect:/";
     }
+
 }

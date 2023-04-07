@@ -4,7 +4,7 @@
 <body>
 <div th:replace="~{/fragments/navbar}"></div>
 <div th:each="makeup : ${allServices}"
-     th:if="${makeup.category==T(com.example.beautySalon.domain.entity.ServiceCategory).HAIRDRESSING}"
+     th:if="${makeup.category==T(com.example.beautySalon.domain.entity.ServiceCategory).MAKEUP}"
      class="text-center">
     <div class="card" th:object="${makeup}">
         <img class="card-img"  th:src="'data:image/jpeg;base64,' + ${imageUtil.getImgData(makeup.getImg().getFileData())}">

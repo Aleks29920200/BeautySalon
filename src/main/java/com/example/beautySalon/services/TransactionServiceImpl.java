@@ -9,7 +9,6 @@ import com.example.beautySalon.domain.dto.service.BillDto;
 import com.example.beautySalon.domain.dto.service.ServiceDto;
 import com.example.beautySalon.domain.dto.service.UserDto;
 import com.example.beautySalon.domain.dto.error.ObjectNotFoundException;
-import com.example.beautySalon.domain.entity.BaseEntity;
 import com.example.beautySalon.domain.entity.Bill;
 import com.example.beautySalon.domain.entity.Transaction;
 import com.example.beautySalon.domain.entity.User;
@@ -21,6 +20,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -109,7 +109,7 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setUser(convertToUserEntity(fillTransactionDto));
         Transaction transaction1 = this.transactionRepo.saveAndFlush(transaction);
         transactionDto.addProductId(transaction1.getId());
-        event(transactionDto);
+        event(transactionDto.getAllProductIDs());
     }
 
     private static LocalDateTime getStartingDatParsed(AddTransactionDto fillTransactionDto) {
@@ -130,9 +130,10 @@ public class TransactionServiceImpl implements TransactionService {
     private com.example.beautySalon.domain.entity.Service convertToServiceEntity(AddTransactionDto fillTransactionDto) {
         return mapper.map(fillTransactionDto.getServiceName(), com.example.beautySalon.domain.entity.Service.class);
     }
-    private void event(TransactionDto transaction1) {
+    private void event(List<Long> allProductIDs) {
         TransactionCreatedEvent orderCreatedEvent =
-                new TransactionCreatedEvent(transaction1.getAllProductIDs());
+                new TransactionCreatedEvent(allProductIDs);
+        orderCreatedEvent.setAlTransactionIDs(allProductIDs);
         LOGGER.info("Transaction was created");
         appEventPublisher.publishEvent(orderCreatedEvent);
     }

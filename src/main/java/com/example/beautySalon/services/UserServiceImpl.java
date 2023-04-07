@@ -40,6 +40,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User findUserById(Long id) {
+        return this.userRepo.findById(id).orElse(null);
+    }
+
+    @Override
     public UserViewDto findUserByUsername(String username) {
         User user = this.userRepo.findUserByUsername(username).orElse(null);
         if(user==null){

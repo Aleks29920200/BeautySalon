@@ -16,6 +16,7 @@ public interface UserService {
 
     User findUserByEmail(String email);
 
+    User findUserById(Long id);
     UserViewDto findUserByUsername(String email);
 
     void registerUser(RegisterDto userDto);
