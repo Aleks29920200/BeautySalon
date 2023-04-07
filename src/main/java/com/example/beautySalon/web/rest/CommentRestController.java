@@ -44,7 +44,7 @@ public class CommentRestController {
         } catch (RuntimeException e) {
             //IGNORE
         }
-        var comments = this.commentService.getCommentsByUser(this.service.findUserByUsername(principal.getName()).getId()).
+        var comments = this.commentService.getComments().
                 stream().
                 map(createCommentViewForUser(principal,user))
                 .collect(Collectors.toList());

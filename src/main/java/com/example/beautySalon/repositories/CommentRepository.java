@@ -10,5 +10,5 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    Optional<List<Comment>> findAllByAuthor(User user);
+
 }

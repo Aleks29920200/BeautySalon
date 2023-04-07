@@ -26,8 +26,8 @@ public class CommentService {
         this.mapper = mapper;
     }
 
-    public List<Comment> getCommentsByUser(Long userId) throws ObjectNotFoundException {
-        return commentRepository.findAllByAuthor(this.userService.findUserById(userId)).get();
+    public List<Comment> getComments() throws ObjectNotFoundException {
+        return commentRepository.findAll();
     }
 
     public Comment createComment(CommentDto commentDto, Long user) throws ObjectNotFoundException {
