@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/fragments/head}"></div>
 <body>
-<header th:replace="~{/fragments/navbar}"></header>
-
+<navbar th:replace="~{fragments/navbar}"></navbar>
 <div class="card" th:object="${manicureType}" th:action="@{'/manicure/' + ${manicureType.id}}"  >
   <img class="card-img" th:src="'data:image/jpeg;base64,' + ${imageUtil.getImgData(manicureType.img.fileData)}" />
   <div class="card-img-overlay">
@@ -13,6 +13,9 @@
   </div>
 </div>
 </div>
+  <div class="text-center" style="background-color: white">
+    <a type="submit" class="btn btn-primary" th:href="@{/index}">Back</a>
+  </div>
   </div>
 </body>
 </html>

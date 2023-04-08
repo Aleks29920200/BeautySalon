@@ -16,8 +16,8 @@
 <div class="container bootstrap snippet">
     <div th:replace="~{fragments/navbar}"></div>
     <ul class="nav-tabs">
-        <li class="nav nav-item active"><href data-toggle="tab" th:href="@{/profile}">Home</href></li>
-        <li class="nav nav-item active"><href data-toggle="tab" th:href="@{/profile/edit}">Edit</href></li>
+        <li class="nav nav-item active"><href data-toggle="tab" data-th-href="#{label.home}">Home</href></li>
+        <li class="nav nav-item active"><href data-toggle="tab" data-th-href="#{label.editProfile}" th:href="@{/profile/edit}">Edit</href></li>
     </ul>
     <div class="page-item" th:action="@{/profile}">
             <div class="tab-content mt-5 " id="home">
@@ -25,7 +25,7 @@
                     <div class="col-md-7">
                         <div class="profile-card p-3 py-4" th:object="${user}">
                             <div class="text-center">
-                                <h1>Home</h1>
+                                <h1 data-th-text="#{label.home}">Home</h1>
                                 <img src="/images/profile.jpg" width="100" class="rounded-circle"></div>
                             <div class="text-center mt-3">
                                 <h5 class="bg-secondary p-1 px-4 rounded text-white" th:each="authority:*{authorities}" th:text="${authority.authority.toString()}">Role</h5>
@@ -41,14 +41,14 @@
     </div>
 </div>
 <div class="page-item" id="edit">
-    <h1>Edit profile</h1>
+    <h1 data-th-text="#{label.editProfile}">Edit profile</h1>
     <div class="tab-content">
         <div class="tab-pane active">
             <hr>
             <form class="form" th:object="${editUser}" th:action="@{profile/edit}" method="post"  id="registration Form" >
                 <div class="form-group">
                     <div class="col-xs-6">
-                        <label for="firstName"><h4>First name</h4></label>
+                        <label for="firstName"><h4 data-th-text="#{label.firstName}">First name</h4></label>
                         <input type="text"
                                class="form-control"
                                name="firstName"
@@ -63,7 +63,7 @@
                 <div class="form-group">
 
                     <div class="col-xs-6">
-                        <label for="lastName"><h4>Last name</h4></label>
+                        <label for="lastName"><h4 data-th-text="#{label.lastName}">Last name</h4></label>
                         <input type="text"
                                class="form-control"
                                name="lastName"
@@ -81,7 +81,7 @@
                     <div class="form-group">
 
                         <div class="col-xs-6">
-                            <label for="email"><h4>Email</h4></label>
+                            <label for="email"><h4 data-th-text="#{label.employeeEmail}">Email</h4></label>
                             <input type="email"
                                    class="form-control"
                                    name="email"
@@ -96,7 +96,7 @@
                     <div class="form-group">
 
                         <div class="col-xs-6">
-                            <label for="password"><h4>Password</h4></label>
+                            <label for="password"><h4 data-th-text="#{label.password}">Password</h4></label>
                             <input type="password"
                                    class="form-control"
                                    name="password"
@@ -111,7 +111,7 @@
                     <div class="form-group">
 
                         <div class="col-xs-6">
-                            <label for="confirmPassword"><h4>Verify</h4></label>
+                            <label for="confirmPassword"><h4 data-th-text="#{label.confirmPassword}">Confirm password</h4></label>
                             <input type="password" class="form-control"
                                    name="confirmPassword"
                                    id="confirmPassword"
@@ -125,7 +125,7 @@
                     <div class="form-group">
                         <div class="col-xs-12">
                             <br>
-                            <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                            <button class="btn btn-lg btn-success" type="submit" ><i class="glyphicon glyphicon-ok-sign"></i>Save</button>
                             <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
                         </div>
                     </div>
